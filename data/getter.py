@@ -7,6 +7,8 @@ import joblib
 import textract
 from pyppeteer import launch, errors
 from selenium.common import WebDriverException
+from selenium import webdriver
+from selenium.webdriver.common.by import By
 
 from helper import *
 
@@ -155,7 +157,9 @@ def get_pdfs(n_pools, min_idx, max_idx):
 
 
 def get_content(n=0):
+
     files = [x for x in os.listdir() if 'pdf' in x]
+    contents, indices = [], []
 
     if n > 0:
         files = files[:n]
@@ -163,8 +167,15 @@ def get_content(n=0):
     for file in files:
         try:
             content = (textract.process(file).decode('utf-8').split("\n"))
-            result = get_data_dict(content)
-            idx = file[-13:-3]
-            joblib.dump(result, str(idx))
+            content = get_data_dict(content)
+            contents.append(content)
+
+            idx = int(file.split('-')[-1][:-4])
+            indices.append(idx)
+
+            joblib.dump(content, str(idx))
+
         except UnicodeDecodeError:
             print(f'Could not decode file {file}')
+
+    return contents, indices

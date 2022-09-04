@@ -1,12 +1,9 @@
+import pandas as pd
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium import webdriver
 import os
 
 
 def get_chrome_options(headless=True):
-
     os.environ["PATH"] += os.pathsep + '/home/lukas'
 
     chrome_path = '/usr/bin/google-chrome'
@@ -21,31 +18,90 @@ def get_chrome_options(headless=True):
 
 
 def get_data_dict(content):
-    
     result = {}
-    
+
     for line in content:
         sep = line.find(':')
         if sep > -1:
             key = line[:sep]
-            value = line[sep+2:]
-            if value == 'Second Strand: -':
-                if 'Second Strand' in result.keys():
-                    result['Second Strand'].append('-')
-                else:
-                    result['Second Strand'] = ['-']
+            value = line[sep + 2:]
+            if ':' in value:
+                new_keys = value.split(':')
+                add_to_dict(result, new_keys[0], '-')
                 value = '-'
-            if key in result.keys():
-                result[key].append(value)
-            else:
-                result[key] = [value]
+                if len(new_keys) > 2:
+                    result = add_to_dict(result, new_keys[1], new_keys[2])
+            result = add_to_dict(result, key, value)
 
-    result['Whole Sequence'] = content[content.index('Sequence:')-1]
+    result['Whole Sequence'] = content[content.index('Sequence:') - 1]
+    result['Sequence'] = result['Sequence'][1:]
 
     for key, value in result.items():
         if len(value) == 1:
             result[key] = value[0]
-            
+
+    return result
+
+
+def init_content_df():
+
+    single_columns = ['Loop type', 'Home structure (PDB id)', 'DB notation',
+                      'Whole Sequence']
+
+    multiple_columns = ['Length (bps)',
+                        'Second Strand',
+                        'First Strand',
+                        'Length (nts)',
+                        'End position',
+                        'Euler Angle X',
+                        'Start position',
+                        'Euler Angle Y',
+                        'Euler Angle Z',
+                        'Planar Angle']
+
+    twice_multiple_columns = ['Sequence']
+
+    columns = single_columns
+
+    for column in multiple_columns:
+        columns += [column + f' {idx}' for idx in range(1, 15)]
+
+    for column in twice_multiple_columns:
+        columns += [column + f' {idx}' for idx in range(1, 29)]
+
+    df = pd.DataFrame(columns=columns)
+
+    return df
+
+
+def insert_content_df(df, content, idx):
+
+    flat_content = {}
+
+    for key, value in content.items():
+        if isinstance(value, list):
+            for i, entry in enumerate(value):
+                flat_content[key + f' {i + 1}'] = entry
+        else:
+            flat_content[key] = value
+
+    for column in df.columns:
+        if column not in flat_content.keys():
+            flat_content[column] = None
+
+    df.loc[idx, flat_content.keys()] = list(flat_content.values())
+
+    return df
+
+
+def add_to_dict(result, key, value):
+    key, value = key.strip().replace('°', ''), value.strip().replace('°', '')
+
+    if key in result.keys():
+        result[key].append(value)
+    else:
+        result[key] = [value]
+
     return result
 
 
