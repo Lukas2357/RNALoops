@@ -1,6 +1,6 @@
-data/data_files
-data/data_pdfs
-data/rnaloops
+data_getter/data_files
+data_getter/data_pdfs
+data_getter/rnaloops
 *ipynb_checkpoints*
 *__pycache__*
 *.pyc
