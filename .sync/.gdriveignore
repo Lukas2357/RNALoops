@@ -3,3 +3,4 @@ __pycache__
 .sync
 data_files
 data_pdfs
+rnaloops_data.json
