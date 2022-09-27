@@ -1,8 +1,11 @@
-*.pdf
-[0-9]*
+data_files/
+data_pdfs/
+data_prepared/
+rnaloops.pkl
+
 *ipynb_checkpoints*
+*__pycache__*
 *.pyc
-data/rnaloops
-data_prepared/*
-orga
-.sync
+.sync/*
+!.sync/.last_modified.json
+!.sync/.gdriveignore

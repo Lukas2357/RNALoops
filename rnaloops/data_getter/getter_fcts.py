@@ -1,5 +1,7 @@
 import asyncio
+import math
 from multiprocessing import Pool
+from pathlib import Path
 from timeit import default_timer
 from random import shuffle
 
@@ -10,14 +12,23 @@ from selenium.common import WebDriverException
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from helper import *
+from .helper_fcts import *
+
+
+def init_driver(headless=True, detached=False, url=None):
+    chrome_options = get_chrome_options(headless=headless, detached=detached)
+    driver = webdriver.Chrome(options=chrome_options)
+    if url is not None:
+        driver.get(url)
+    return driver
 
 
 async def get_pdfs_async():
+
     count, step, page = 0, 5, None
     range_start, range_stop = 100_050, 101_000
 
-    files = os.listdir("/home/lukas/Documents/RNALoops/data")
+    files = os.listdir(os.path.join("rnaloops", "data_getter"))
     files = [file for file in files if 'pdf' in file]
     prev_indices = [int(file[-10:-4]) for file in files]
 
@@ -85,7 +96,7 @@ def get_pdfs_seq(indices, verbose=False):
         if not urls:
             continue
 
-        driver = webdriver.Chrome(options=get_chrome_options(headless=True))
+        driver = init_driver()
 
         for url in urls:
 
@@ -113,7 +124,7 @@ def pdf_getter(n_pools=8, min_idx=100_000, max_idx=200_000):
 
     urls_per_pool = int((max_idx - min_idx) / n_pools)
 
-    files = os.listdir("/home/lukas/Documents/RNALoops/data")
+    files = os.listdir(os.path.join("rnaloops", "data_getter"))
     files = [file for file in files if 'pdf' in file]
     prev_indices = [int(file.split('-')[-1][:-4]) for file in files]
     prev_indices_dict = {idx: False for idx in range(min_idx, max_idx)}
@@ -140,7 +151,7 @@ def pdf_getter(n_pools=8, min_idx=100_000, max_idx=200_000):
 
 def get_pdfs(n_pools, min_idx, max_idx):
 
-    dir_path = "/home/lukas/Documents/RNALoops/data"
+    dir_path = os.path.join("rnaloops", "data_getter")
     n_files = len(os.listdir(dir_path))
 
     n_urls = max_idx - min_idx
@@ -179,3 +190,53 @@ def get_content(n=0):
             print(f'Could not decode file {file}')
 
     return contents, indices
+    
+    
+def batch_files(kind='pdf'):
+    
+    parent = 'data_pdfs' if kind == 'pdf' else 'data_files'
+    Path(parent).mkdir(parents=True, exist_ok=True)
+    
+    for start in range(0, 300_000, 1000):
+
+        stop = start + 1000
+
+        subfolder = f"{start}-{stop}"
+        folder = os.path.join(parent, subfolder)
+        Path(folder).mkdir(parents=True, exist_ok=True)
+
+        for file in os.listdir(parent):
+
+            if not os.path.isdir(os.path.join(parent, file)):
+
+                if kind == 'pdf':
+                    idx = int(file.split("-")[-1][:-4])
+                else:
+                    idx = int(file)
+
+                if start <= idx < stop:
+                    os.rename(os.path.join(parent, file),
+                              os.path.join(folder, file))
+
+        if len(os.listdir(folder)) == 0:
+            os.rmdir(folder)
+
+
+def get_df():
+    return joblib.load(os.path.join('rnaloops', 'data_prepared',
+                                    'rnaloops_data.pkl'))
+
+
+def get_pdf(idx):
+
+    lower_idx_1000 = math.floor(idx / 1000) * 1000
+    idx_range = f'{lower_idx_1000}-{lower_idx_1000 + 1000}'
+    folder = os.path.join('rnaloops', 'data_getter', 'data_pdfs', idx_range)
+
+    for file in os.listdir(folder):
+        if idx == int(file.split("-")[-1][:-4]):
+            return os.path.join(folder, file)
+
+
+def get_url(idx):
+    return f'https://rnaloops.cs.put.poznan.pl/search/details/{idx}'
