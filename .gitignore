@@ -6,5 +6,6 @@ rnaloops.pkl
 *ipynb_checkpoints*
 *__pycache__*
 *.pyc
-
-orga
+.sync/*
+!.sync/.last_modified.json
+!.sync/.gdriveignore
