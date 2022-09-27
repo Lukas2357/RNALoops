@@ -1,6 +1,8 @@
-*.pdf
-[0-9]*
-*ipynb_checkpoints*
-*.pyc
+data/data_files
+data/data_pdfs
 data/rnaloops
-data_prepared/*
+*ipynb_checkpoints*
+*__pycache__*
+*.pyc
+data_prepared
+orga

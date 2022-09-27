@@ -179,3 +179,33 @@ def get_content(n=0):
             print(f'Could not decode file {file}')
 
     return contents, indices
+    
+    
+def batch_files(kind='pdf'):
+    
+    parent = 'data_pdfs' if kind == 'pdf' else 'data_files'
+    Path(parent).mkdir(parents=True, exist_ok=True)
+    
+    for start in range(0, 300_000, 1000):
+
+    stop = start + 1000
+
+    subfolder = f"{start}-{stop}"
+    folder = os.path.join(parent, subfolder)
+    Path(folder).mkdir(parents=True, exist_ok=True)
+
+    for file in os.listdir(parent):
+        
+        if not os.path.isdir(os.path.join(parent, file)):
+            
+            if kind == 'pdf':
+                idx = int(file.split("-")[-1][:-4])
+            else:
+                idx = int(file)
+
+            if start <= idx < stop:
+                os.rename(os.path.join(parent, file), 
+                          os.path.join(folder, file))
+                
+    if len(os.listdir(folder)) == 0:
+        os.rmdir(folder)

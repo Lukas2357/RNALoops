@@ -1,0 +1,7 @@
+__pycache__
+.git
+*.pdf
+[0-9]*
+*ipynb_checkpoints*
+*.pyc
+data/rnaloops
