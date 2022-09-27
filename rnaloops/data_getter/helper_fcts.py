@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.options import Options
 import os
 
 
-def get_chrome_options(headless=True):
+def get_chrome_options(headless=True, detached=False):
     os.environ["PATH"] += os.pathsep + '/home/lukas'
 
     chrome_path = '/usr/bin/google-chrome'
@@ -12,6 +12,7 @@ def get_chrome_options(headless=True):
     if headless:
         chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % window_size)
+    chrome_options.add_experimental_option("detach", detached)
     chrome_options.binary_location = chrome_path
 
     return chrome_options
@@ -103,7 +104,3 @@ def add_to_dict(result, key, value):
         result[key] = [value]
 
     return result
-
-
-def get_url(idx):
-    return f'https://rnaloops.cs.put.poznan.pl/search/details/{idx}'

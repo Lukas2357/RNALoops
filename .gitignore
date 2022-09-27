@@ -1,8 +1,10 @@
-data_getter/data_files
-data_getter/data_pdfs
-data_getter/rnaloops
+data_files/
+data_pdfs/
+data_prepared/
+rnaloops.pkl
+
 *ipynb_checkpoints*
 *__pycache__*
 *.pyc
-data_prepared
+
 orga
