@@ -6,3 +6,5 @@ backups
 .sync
 data_files
 data_pdfs
+rnaloops_data.json
+rnaloops_data.pkl
