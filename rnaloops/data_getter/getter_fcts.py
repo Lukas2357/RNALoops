@@ -254,8 +254,11 @@ def prepare_df():
     helix_df = df[helix_cols].copy()
     helix_df[helix_df < 0] = 0
     helix_df = helix_df.astype(bool).sum(axis=1)
-    df['loop_type'] = pd.Series([f'{x}-way' for x in helix_df]).values
-    df['loop_type'] = df['loop_type'].astype('category')
+    df.loop_type = pd.Series([f'{x:02}-way' for x in helix_df]).values
+    # Es gibt ein oder zwei 0-way bzw. 2-way loops, das ist Quatsch, entferne:
+    df = df[df.loop_type != '00-way']
+    df = df[df.loop_type != '02-way']
+    df.loop_type = df.loop_type.astype('category')
 
     # ATTENTION: Some structures have 0 helices, this is not true, instead
     # the information are just missing. We remove those structures (~2300):
