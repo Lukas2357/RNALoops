@@ -29,7 +29,6 @@ dependencies:
     - appdirs==1.4.4
     - argcomplete==1.10.3
     - argon2-cffi==21.3.0
-    - argon2-cffi-bindings==21.2.0
     - asttokens==2.0.8
     - async-generator==1.10
     - attrs==22.1.0
@@ -52,7 +51,6 @@ dependencies:
     - contourpy==1.0.5
     - cryptography==35.0.0
     - cycler==0.11.0
-    - debugpy==1.6.3
     - decorator==5.1.1
     - defusedxml==0.7.1
     - docx2txt==0.8
@@ -109,15 +107,13 @@ dependencies:
     - markupsafe==2.1.1
     - matplotlib==3.6.0
     - matplotlib-inline==0.1.6
-    - mistune==0.8.4
+    - mistune==2.0.3
     - mypy-extensions==0.4.3
     - nbclassic==0.4.4
     - nbclient==0.5.13
-    - nbconvert==6.4.5
+    - nbconvert==7.1.0
     - nbdime==3.1.1
-    - nbformat==5.6.1
     - nest-asyncio==1.5.6
-    - nltk==3.7
     - notebook==6.4.12
     - notebook-shim==0.1.0
     - numpy==1.23.3
@@ -140,7 +136,6 @@ dependencies:
     - prompt-toolkit==3.0.31
     - protobuf==3.19.6
     - psutil==5.9.0
-    - psycopg2-binary==2.9.3
     - ptyprocess==0.7.0
     - pure-eval==0.2.2
     - pyarrow==9.0.0
@@ -160,7 +155,6 @@ dependencies:
     - python-pptx==0.6.21
     - pytz==2022.2.1
     - pytz-deprecation-shim==0.1.0.post0
-    - pyyaml==6.0
     - pyzmq==23.2.0
     - regex==2022.9.13
     - requests==2.28.1
@@ -184,9 +178,9 @@ dependencies:
     - tensorboard-plugin-wit==1.8.1
     - terminado==0.16.0
     - testpath==0.6.0
-    - textract==1.6.5
     - theme-darcula==4.0.0
     - threadpoolctl==3.1.0
+    - tinycss2==1.1.1
     - toml==0.10.2
     - tomli==2.0.1
     - tornado==6.1
