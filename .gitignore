@@ -7,8 +7,6 @@ rnaloops_data*
 
 # Sync files
 .sync*/*
-!.sync*/.last_modified.json
-!.sync*/.gdriveignore
 
 # History files
 .bash_history
@@ -17,26 +15,18 @@ rnaloops_data*
 backups/
 backup
 
-# Files only synced with GDrive normally
-Skript/
-skript/
-Folien/
-folien/
-Videos/
-videos/
+# Files only required locally
 Notizen/
 notizen/
 Orga/
 orga/
-Klausur/
-klausur/
 paper/
 Paper/
 notes/
 Notes/
 Temp/
 temp/
-
+.idea/
 
 ### Python related stuff ###
 
