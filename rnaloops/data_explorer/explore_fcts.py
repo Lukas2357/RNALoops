@@ -5,6 +5,7 @@ from time import sleep
 from typing import Iterable
 
 from IPython.display import SVG, display
+from pandas.api.types import is_numeric_dtype
 
 from ..data_getter.getter_fcts import *
 
@@ -33,7 +34,74 @@ def get_prepared_df():
     df = joblib.load(path)
     # Add column information print method:
     df.columns_info = lambda: print(COLUMN_INFO)
+    set_attrs(df)
+    for way in range(3, 15):
+        setattr(df, f'way{way}', get_loop_types(df, way))
+        set_attrs(getattr(df, f'way{way}'))
+    df.upto8 = get_loop_types(df, max_way=8)
+    set_attrs(df.upto8)
+    
     return df
+
+
+def set_attrs(df):
+    
+    df.angles = df[[col for col in df.columns 
+                    if 'euler' in col or 'planar' in col]]
+    df.euler = df[[col for col in df.columns if 'euler' in col]]
+    df.euler_x = df[[col for col in df.columns if 'euler_x' in col]]
+    df.euler_y = df[[col for col in df.columns if 'euler_y' in col]]
+    df.euler_z = df[[col for col in df.columns if 'euler_z' in col]]
+    df.planar = df[[col for col in df.columns if 'planar' in col]]
+    df.strand = df[[col for col in df.columns if 'strand' in col]]
+    df.helix = df[[col for col in df.columns if 'helix' in col]]
+    
+    
+def get_loop_types(df=None, way=None, numeric=False, 
+                   max_way=None) -> pd.DataFrame:
+    """Get relevant rows and columns for given loop_types from full df
+    
+    Args:
+        df (pd.DataFrame): df containing all RNALoops data in prepared manner.
+                           Default None -> Loaded from file in that case
+        way (int): The loop type to extract, ignored if max_way is set
+        numeric (bool): Wheather to return only numeric columns
+        max_way (int): This loop type and lower ones are extracted
+    
+    Returns:
+        pd.DataFrame: df containing only rows and columns of given loop_types
+    
+    """
+    
+    if df is None:
+        df = get_prepared_df()
+        
+    if way is None and max_way is None:
+        raise AttributeError('Must either specify way or max_way.')
+    if max_way is None:
+        cols = [f'{way:02}-way']
+    else:
+        if way is not None:
+            print('Both way and max_way set... ignoring the former.')
+        cols = [f'{w:02}-way' for w in range(3, max_way+1)]
+    
+    way_df = df[df.loop_type.isin(cols)]
+    
+    numerics = ['int8', 'int16', 'int64', 'float32', 'float64']
+    
+    drop_cols = [c for c in way_df.columns if is_numeric_dtype(way_df[c])
+                 and all(y<0 for y in way_df[c])]
+    
+    way_df = way_df.drop(drop_cols, axis=1)
+    way_df = way_df.dropna(axis=1, how='all')
+    
+    if numeric:
+        way_df = way_df.select_dtypes(include=numerics)
+        
+    rm_cols = [f'{w:02}-way' for w in range(3, 15) if f'{w:02}-way' not in cols] 
+    way_df.loop_type = way_df.loop_type.cat.remove_categories(rm_cols)
+    
+    return way_df
 
 
 def show_structure(df=None, indices=None, pdf=False, web=False, svg=False,
