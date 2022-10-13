@@ -16,6 +16,7 @@ backups/
 backup
 
 # Files only required locally
+raw_data/
 Notizen/
 notizen/
 Orga/
