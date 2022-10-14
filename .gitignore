@@ -1,3 +1,8 @@
+# Temporal files:
+temp/
+temp.py
+temp.ipynb
+
 # Big files:
 data_pdfs/
 data_files/
