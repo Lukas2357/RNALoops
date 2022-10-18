@@ -9,6 +9,9 @@ import warnings
 from matplotlib.colors import LogNorm, Normalize
 from pandas.api.types import is_numeric_dtype
 
+from Bio.PDB import MMCIFParser
+from pdbecif.mmcif_tools import MMCIF2Dict
+
 PARENT_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 sys.path.append(PARENT_DIR)
 
