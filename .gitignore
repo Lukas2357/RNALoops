@@ -7,8 +7,6 @@ temp.ipynb
 data_pdfs/
 data_files/
 rnaloops.pkl
-rnaloops_data*
-!rnaloops_data.csv
 pdb_data/
 rnastrand_data/
 
