@@ -9,6 +9,7 @@ data_files/
 rnaloops.pkl
 pdb_data/
 rnastrand_data/
+gemmi/
 
 # Sync files
 .sync*/*
