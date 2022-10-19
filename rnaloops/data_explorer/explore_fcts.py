@@ -49,7 +49,6 @@ def set_attrs(df):
     df.angles = df[[col for col in df.columns 
                     if 'euler' in col or 'planar' in col]]
     df.euler = df[[col for col in df.columns if 'euler' in col]]
-    print(df.columns)
     df.euler_x = df[[col for col in df.columns if 'euler_x' in col]]
     df.euler_y = df[[col for col in df.columns if 'euler_y' in col]]
     df.euler_z = df[[col for col in df.columns if 'euler_z' in col]]
