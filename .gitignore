@@ -10,7 +10,7 @@ rnaloops.pkl
 pdb_data/
 rnastrand_data/
 gemmi/
-*.pkl
+structures/
 
 # Sync files
 .sync*/*

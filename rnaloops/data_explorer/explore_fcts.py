@@ -1,5 +1,6 @@
 import os.path
 import random
+import warnings
 import webbrowser
 from time import sleep
 from typing import Iterable
@@ -27,6 +28,10 @@ https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/rna_structure_notations.html
 
 
 def get_prepared_df():
+
+    # Ignore Pandas column creation warning, should be checked in the future:
+    warnings.filterwarnings('ignore')
+
     # make sure that 'rnaloops/data/rnaloops_data_prepared.pkl' exist
     # it is created from rnaloops_data.pkl by _prepare_df from above
     path = os.path.join('rnaloops', 'data', 'rnaloops_data_prepared.pkl')
@@ -40,6 +45,8 @@ def get_prepared_df():
         set_attrs(getattr(df, f'way{way}'))
     df.upto8 = get_loop_types(df, max_way=8)
     set_attrs(df.upto8)
+
+    warnings.filterwarnings('default')
     
     return df
 
@@ -65,7 +72,7 @@ def get_loop_types(df=None, way=None, numeric=False,
         df (pd.DataFrame): df containing all RNALoops data in prepared manner.
                            Default None -> Loaded from file in that case
         way (int): The loop type to extract, ignored if max_way is set
-        numeric (bool): Wheather to return only numeric columns
+        numeric (bool): Weather to return only numeric columns
         max_way (int): This loop type and lower ones are extracted
     
     Returns:
@@ -90,7 +97,7 @@ def get_loop_types(df=None, way=None, numeric=False,
     numerics = ['int8', 'int16', 'int64', 'float32', 'float64']
     
     drop_cols = [c for c in way_df.columns if is_numeric_dtype(way_df[c])
-                 and all(y<0 for y in way_df[c])]
+                 and all(y < 0 for y in way_df[c])]
     
     way_df = way_df.drop(drop_cols, axis=1)
     way_df = way_df.dropna(axis=1, how='all')
@@ -203,4 +210,3 @@ def compare_raw_and_prepared(df_raw, df_prepared, ):
             df = df.drop(row[0])
 
     return df
-

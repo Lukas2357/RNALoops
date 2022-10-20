@@ -16,6 +16,7 @@ PARENT_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 sys.path.append(PARENT_DIR)
 
 from rnaloops.data_explorer.explore_fcts import *
+from rnaloops.data_verifier.mmcif_parser import *
 
 os.chdir(PARENT_DIR)
 
