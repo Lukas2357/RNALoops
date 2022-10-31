@@ -3,14 +3,18 @@ temp/
 temp.py
 temp.ipynb
 
-# Big files:
-data_pdfs/
-data_files/
-rnaloops.pkl
+# Big data files:
 pdb_data/
+rnaloops_data/
 rnastrand_data/
-gemmi/
 structures/
+
+# Result images:
+results/
+
+# External packages:
+gemmi/
+pdb-tools/
 
 # Sync files
 .sync*/*
@@ -22,19 +26,17 @@ structures/
 backups/
 backup
 
-# Files only required locally
-raw_data/
+# Personal files:
 Notizen/
 notizen/
 Orga/
 orga/
 notes/
 Notes/
-Temp/
-temp/
-.idea/
 
 ### Python related stuff ###
+
+.idea/
 
 # Data Files
 *.dta
