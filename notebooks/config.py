@@ -15,8 +15,10 @@ import colorcet as cc
 from scipy import stats
 from adjustText import adjust_text
 from timeit import default_timer
+from collections import Counter
 
 from Bio.PDB import MMCIFParser, MMCIF2Dict
+from Bio import SeqIO
 
 PARENT_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 sys.path.append(PARENT_DIR)
@@ -31,9 +33,15 @@ from rnaloops.config.constants import *
 from rnaloops.explore.plot_fcts import *
 from rnaloops.explore.get_similar import *
 from rnaloops.explore.help_fcts import *
+from rnaloops.explore.macro_eda import *
+from rnaloops.explore.micro_eda import *
+from rnaloops.engineer.add_features import *
+from rnaloops.engineer.predict_prep import *
 from rnaloops.cluster.cluster_fcts import generic_clustering
 from rnaloops.cluster.cluster_plot import do_plot
+from rnaloops.cluster.clustering import do_cluster
 from rnaloops.cluster.cluster_plot_help_fcts import init_subplots_plot
+from rnaloops.engineer.analyse_cluster import *
 
 
 os.chdir(PARENT_DIR)
