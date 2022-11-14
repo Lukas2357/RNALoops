@@ -14,11 +14,12 @@ from rnaloops.prepare.data_loader import load_data
 from rnaloops.prepare.explore_fcts import open_svg_image
 
 
-def main_clustering(agg_df, way, n_cluster, alg, chunk_size):
+def main_clustering(agg_df, way, n_cluster, alg, chunk_size,
+                    plot=False, save=False):
     files, missing = [], False
     for file_idx in range(int(np.ceil(n_cluster / chunk_size))):
         min_idx, max_idx = file_idx * chunk_size, (file_idx + 1) * chunk_size
-        f = mypath(folder=f'cluster_ids/n_{n_cluster}/way{way}/csv',
+        f = mypath(folder=f'results/cluster_ids/n_{n_cluster}/way{way}/csv',
                    file=f'{alg}_{min_idx}-{max_idx}.csv',
                    create_if_missing=True)
         if os.path.isfile(f):
@@ -29,8 +30,10 @@ def main_clustering(agg_df, way, n_cluster, alg, chunk_size):
     if missing:
 
         feature = [f'planar_{i}_median' for i in range(1, way + 1)]
-        cluster = do_cluster(agg_df, feature, (n_cluster,), dim=way, save=False,
-                             alg=alg, plot=False, scaler=None)[0]
+        path = f'cluster_ids/n_{n_cluster}/way{way}/all_cluster_way{way}'
+        cluster = do_cluster(agg_df, feature, (n_cluster,), dim=way, save=save,
+                             alg=alg, plot=plot, scaler=None,
+                             scatterplot_path=path)[0]
 
         for chunk in range(int(np.ceil(n_cluster / chunk_size))):
             min_idx, max_idx = chunk * chunk_size, (chunk + 1) * chunk_size

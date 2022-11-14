@@ -11,7 +11,7 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2,), dim=1,
                n_bins=20, dpi=300, show_cluster_of=None, save=True,
                elbow=False, silhouette=False, plot_center=False,
                s=60, scale=1, fontsize=7, silhouette_plot=True,
-               verbose=False):
+               scatterplot_path=None, verbose=False):
     """Do cluster function to be called from the Analyst
 
     Args:
@@ -35,6 +35,7 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2,), dim=1,
         silhouette (bool): Whether to show silhouette plots
         plot_center (bool): Whether to plot the centers of kMeans clustering
         silhouette_plot (bool): Whether to plot silhouette plots
+        scatterplot_path (str): The path where to save plots of feature combis
         verbose (bool): Whether to log actions
         fontsize (float): Size of the fonts in plot.
         scale (float, optional): Scale factor of plots.
@@ -103,10 +104,11 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2,), dim=1,
                               'an.create_plots=False ...')
                 else:
                     for entry in res_data:
-                        new_file_path = os.path.join(
-                            file_path, '-'.join(entry.columns)
-                        )
-                        plot_kwargs['path'] = new_file_path
+                        if scatterplot_path is None:
+                            scatterplot_path = os.path.join(
+                                file_path, '-'.join(entry.columns)
+                            )
+                        plot_kwargs['path'] = scatterplot_path
                         combis = get_feature_combis(entry, entry.columns)
                         do_plot(combis, result, **plot_kwargs)
                         if verbose:
