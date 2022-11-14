@@ -4,6 +4,7 @@ import warnings
 
 import joblib
 import pandas as pd
+from Bio import SeqIO
 from pandas.core.dtypes.common import is_numeric_dtype
 
 from ..config.helper import mypath
@@ -59,7 +60,11 @@ def load_data(kind='_cleaned_L3'):
     # Ignore Pandas column creation warning, should be checked in the future:
     warnings.filterwarnings('ignore')
 
-    df = joblib.load(mypath("DATA_PREP", f'rnaloops_data{kind}.pkl'))
+    try:
+        df = joblib.load(mypath("DATA_PREP", f'rnaloops_data{kind}.pkl'))
+    except OSError:
+        df = pd.read_csv(mypath("DATA_PREP", f'rnaloops_data{kind}.csv'),
+                         index_col=0)
 
     # Add column information print method:
     df.columns_info = lambda: print(COLUMN_INFO)
@@ -72,7 +77,7 @@ def load_data(kind='_cleaned_L3'):
     set_attrs(df.upto8)
 
     warnings.filterwarnings('default')
-    
+
     return df
 
 
@@ -90,7 +95,7 @@ def set_attrs(df):
     """
     warnings.filterwarnings('ignore')
 
-    df.angles = df[[col for col in df.columns 
+    df.angles = df[[col for col in df.columns
                     if 'euler' in col or 'planar' in col]]
     df.euler = df[[col for col in df.columns if 'euler' in col]]
     df.euler_x = df[[col for col in df.columns if 'euler_x' in col]]
@@ -103,9 +108,9 @@ def set_attrs(df):
                         and 'std' in col]]
     df.strand = df[[col for col in df.columns if 'strand' in col]]
     df.helix = df[[col for col in df.columns if 'helix' in col]]
-    
-    
-def get_loop_types(df=None, way=None, numeric=False, 
+
+
+def get_loop_types(df=None, way=None, numeric=False,
                    max_way=None) -> pd.DataFrame:
     """Get relevant rows and columns for given loop_types from full df
     
@@ -128,7 +133,7 @@ def get_loop_types(df=None, way=None, numeric=False,
     """
     if df is None:
         df = load_data('_prepared')
-        
+
     if way is None and max_way is None:
         raise AttributeError('Must either specify way or max_way.')
     if max_way is None:
@@ -136,22 +141,72 @@ def get_loop_types(df=None, way=None, numeric=False,
     else:
         if way is not None:
             print('Both way and max_way set... ignoring the former.')
-        cols = [f'{w:02}-way' for w in range(3, max_way+1)]
-    
+        cols = [f'{w:02}-way' for w in range(3, max_way + 1)]
+
     way_df = df[df.loop_type.isin(cols)]
-    
+
     numerics = ['int8', 'int16', 'int64', 'float32', 'float64']
-    
+
     drop_cols = [c for c in way_df.columns if is_numeric_dtype(way_df[c])
                  and all(y < 0 for y in way_df[c])]
-    
+
     way_df = way_df.drop(drop_cols, axis=1)
     way_df = way_df.dropna(axis=1, how='all')
-    
+
     if numeric:
         way_df = way_df.select_dtypes(include=numerics)
-        
-    rm_cols = [f'{w:02}-way' for w in range(3, 15) if f'{w:02}-way' not in cols] 
-    way_df.loop_type = way_df.loop_type.cat.remove_categories(rm_cols)
-    
+
+    rm_cols = [f'{w:02}-way' for w in range(3, 15) if f'{w:02}-way' not in cols]
+    try:
+        way_df.loop_type = way_df.loop_type.cat.remove_categories(rm_cols)
+    except AttributeError:
+        pass
+
     return way_df
+
+
+def load_sequence_map() -> pd.DataFrame:
+    """Load chain sequences from fasta file and create dict to map them to ints
+
+    Returns
+    -------
+    pd.DataFrame
+        key=chain sequence, value=id -> a mapper for unique chains in RNALoops
+
+    """
+    sequences = {'label': [], 'organism': [], 'seq': []}
+    index = []
+
+    for record in SeqIO.parse(mypath('DATA', "sequences.fasta"), "fasta"):
+        description = record.description.split("|")
+        label = description[2].lower()
+        organism = ' '.join(description[3].split(' ')[:-1])
+        organism = organism.lower()
+        pdb_id = description[0].split("_")[0]
+        if ',' in description[1]:
+            chain_ids = description[1].split(',')
+        else:
+            chain_ids = [description[1]]
+
+        for chain_id in chain_ids:
+            chain_id = chain_id.split(" ")[-1].replace("]", "")
+            seq = str(record.seq)
+            sequences['label'].append(label)
+            sequences['organism'].append(organism)
+            sequences['seq'].append(seq)
+            index.append(pdb_id + "-" + chain_id)
+
+    for key, value in sequences.items():
+        sequences[key] = pd.Series(value, name=key)
+
+    unique_seq = sequences['seq'].unique()
+    mapper = {x: y for x, y in zip(unique_seq, range(len(unique_seq)))}
+    seq_mapped = sequences['seq'].map(mapper)
+    values = [seq_mapped] + [value for value in sequences.values()]
+    cols = ['idx'] + list(sequences.keys())
+
+    seq_map = pd.DataFrame(columns=cols, index=index)
+    for idx, value in enumerate(values):
+        seq_map[cols[idx]] = value.values
+
+    return seq_map

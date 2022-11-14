@@ -1,4 +1,5 @@
 import random
+from typing import Iterable
 
 import numpy as np
 import pandas as pd
@@ -8,7 +9,8 @@ import seaborn as sns
 import colorcet as cc
 from sklearn.neighbors import LocalOutlierFactor
 
-from .help_fcts import get_frequent_sequences, get_sequence_mean_angles
+from .help_fcts import get_frequent_sequences, get_sequence_mean_angles, \
+    confidence_ellipse
 from ..cluster.cluster_fcts import generic_clustering
 from ..cluster.cluster_plot import do_plot
 from ..config.helper import save_figure
@@ -18,15 +20,21 @@ from ..prepare.data_loader import load_data
 def plot_angles(
         feature,
         df=None,
-        sequence=0,
+        sequence='',
         show_other=True,
         ms=20,
         hue_col="parts_seq",
+        marker_col=None,
         legend=True,
         save=True,
         ax=None,
         cat="whole_sequence",
-        outlier_std=100
+        outlier_std=None,
+        color=None,
+        w_size=5,
+        title=True,
+        cut='min_max',
+        plot_mean=False
 ):
     if df is None:
         df = load_data("_cleaned_L2")
@@ -40,16 +48,23 @@ def plot_angles(
             .sort_values("id", ascending=False)
             .index[sequence]
         )
+
     data = df.loc[sequence]
+    if isinstance(data, pd.Series):
+        data = pd.DataFrame([data])
     other = df[df.index != sequence]
     hue = data[hue_col]
+    markers = data[marker_col] if marker_col is not None else None
 
     plot_data, plot_other = [], []
     for f in feature:
         temp = data[f]
-        inlier = abs(temp - np.mean(temp)) < outlier_std * np.std(temp)
-        hue = hue[inlier]
-        temp = temp[inlier]
+        if outlier_std is not None:
+            inlier = abs(temp - np.mean(temp)) < outlier_std * np.std(temp)
+            hue = hue[inlier]
+            if marker_col is not None:
+                markers = markers[inlier]
+            temp = temp[inlier]
         plot_data.append(temp)
         plot_other.append(other)
 
@@ -83,11 +98,13 @@ def plot_angles(
 
     n_colors = len(hue.unique())
     palette = sns.color_palette(cc.glasbey, n_colors=n_colors)
-    legend = False if hue_col != "parts_seq" else legend
+    legend = False if hue_col == "home_structure" else legend
+
+    xd = plot_data[0]
 
     if len(feature) == 1:
         sns.histplot(
-            x=plot_data[0].values,
+            x=xd.values,
             legend=legend,
             ax=ax,
             hue=hue,
@@ -95,45 +112,106 @@ def plot_angles(
         )
 
     if len(feature) == 2:
-        sns.scatterplot(
-            x=plot_data[0],
-            y=plot_data[1],
-            hue=hue,
-            palette=palette,
-            s=ms,
-            legend=legend,
-            ax=ax,
-        )
+        yd = plot_data[1]
+        sns_legend = False if isinstance(legend, Iterable) else legend
+        kwargs = dict(x=xd,
+                      y=yd,
+                      s=ms,
+                      legend=sns_legend,
+                      ax=ax,
+                      style=markers)
+        if color is None:
+            a = sns.scatterplot(palette=palette, hue=hue, **kwargs)
+        else:
+            a = sns.scatterplot(color=color, **kwargs)
 
-        x_range = max(plot_data[0]) - min(plot_data[0])
-        y_range = max(plot_data[1]) - min(plot_data[1])
-        ax.set_xlim(min(plot_data[0]) - 0.01 * x_range,
-                    max(plot_data[0]) + 0.01 * x_range)
-        ax.set_ylim(min(plot_data[1]) - 0.01 * y_range,
-                    max(plot_data[1]) + 0.01 * y_range)
+        if isinstance(legend, Iterable):
+            ax.legend(legend)
+
+        elif sns_legend:
+
+            handles, labels = a.get_legend_handles_labels()
+            hue_label = labels.index(hue_col)
+            style_label = labels.index(marker_col)
+
+            max_n = 8
+
+            if style_label <= max_n:
+                hue_handles = handles[hue_label + 1:style_label]
+                hue_labels = labels[hue_label + 1:style_label]
+            else:
+                hue_handles = handles[hue_label + 1:max_n+1]
+                hue_labels = labels[hue_label + 1:max_n] + ['...']
+            if style_label + 5 <= len(labels):
+                style_handles = handles[style_label + 1:style_label + max_n + 1]
+                style_labels = (labels[style_label + 1:style_label + max_n] +
+                                ['...'])
+            else:
+                style_handles = handles[style_label + 1:]
+                style_labels = labels[style_label + 1:]
+
+            a.legend(hue_handles + style_handles, hue_labels + style_labels,
+                     title='color = ' + labels[hue_label] +
+                           ' and ' + 'marker = ' + labels[style_label])
+
+        mean_x, mean_y = np.mean(xd), np.mean(yd)
+
+        if plot_mean:
+            confidence_ellipse(xd, yd, ax, n_std=1.0, facecolor=color, ls='-',
+                               alpha=0.3, label='_nolegend_', edgecolor='k',
+                               zorder=10)
+            confidence_ellipse(xd, yd, ax, n_std=1.0 / np.sqrt(len(xd)),
+                               facecolor=color, alpha=0.6, edgecolor='k',
+                               lw=1, ls='-', label='_nolegend_', zorder=20)
+
+        if cut == 'std':
+            x_range = np.std(xd)
+            y_range = np.std(yd)
+            x_range = np.std(xd[abs(xd - mean_x) < 3 * x_range])
+            y_range = np.std(yd[abs(yd - mean_y) < 3 * y_range])
+            if not np.isnan(x_range) and x_range > 0 and y_range > 0:
+                ax.set_xlim(mean_x - w_size * x_range,
+                            mean_x + w_size * x_range)
+                ax.set_ylim(mean_y - w_size * y_range,
+                            mean_y + w_size * y_range)
+
+        elif cut == 'min_max':
+            x_range = max(xd) - min(xd)
+            y_range = max(yd) - min(yd)
+            if x_range > 0 and y_range > 0:
+                ax.set_xlim(min(xd) - 0.1 * x_range,
+                            max(xd) + 0.1 * x_range)
+                ax.set_ylim(min(yd) - 0.1 * y_range,
+                            max(yd) + 0.1 * y_range)
 
     if len(feature) == 3:
+
+        yd, zd = plot_data[1], plot_data[2]
         ax.scatter3D(
-            xs=plot_data[0],
-            ys=plot_data[1],
-            zs=plot_data[2],
+            xs=xd,
+            ys=yd,
+            zs=zd,
             s=ms,
             color='r'
         )
 
-        x_range = max(plot_data[0]) - min(plot_data[0])
-        y_range = max(plot_data[1]) - min(plot_data[1])
-        z_range = max(plot_data[2]) - min(plot_data[2])
-        ax.set_xlim(min(plot_data[0]) - 0.1 * x_range,
-                    max(plot_data[0]) + 0.1 * x_range)
-        ax.set_ylim(min(plot_data[1]) - 0.1 * y_range,
-                    max(plot_data[1]) + 0.1 * y_range)
-        ax.set_zlim(min(plot_data[2]) - 0.1 * z_range,
-                    max(plot_data[2]) + 0.1 * z_range)
+        if cut:
+            x_range = max(xd) - min(xd)
+            y_range = max(yd) - min(yd)
+            z_range = max(zd) - min(zd)
+            ax.set_xlim(min(xd) - 0.1 * x_range,
+                        max(xd) + 0.1 * x_range)
+            ax.set_ylim(min(yd) - 0.1 * y_range,
+                        max(yd) + 0.1 * y_range)
+            ax.set_zlim(min(zd) - 0.1 * z_range,
+                        max(zd) + 0.1 * z_range)
 
-    ax.set_title(sequence + f' ({data.loop_type.iloc[0]})')
+    if isinstance(title, str):
+        ax.set_title(title)
+    elif title:
+        ax.set_title(sequence + f' ({data.loop_type.iloc[0]})')
 
-    save_figure(sequence, folder='angles/'+'-'.join(feature),
+    save_figure(sequence, folder='angles/' + '-'.join(feature),
                 create_if_missing=True, save=save, recent=False)
 
     return ax
@@ -174,11 +252,11 @@ def cluster_angles(
         inlier = data[outlier > 0]
         outlier = data[outlier < 0]
 
-    kwargs = dict(dim=2, alg=alg, path="", save=False)
+    kwargs = dict(dim=len(data.columns), alg=alg, path="", save=False)
 
     c_data = inlier if do_cluster else inlier.iloc[:n_cluster]
 
-    _, result = generic_clustering(
+    data, result = generic_clustering(
         c_data,
         features=data.columns,
         n_cluster=n_cluster,
@@ -231,7 +309,6 @@ def cluster_angles(
 
 
 def planar_angles_diff_clustermap(df, min_n=50, save=True):
-
     data = get_frequent_sequences(df, min_n=min_n)
     data = get_sequence_mean_angles(data, category="index")
 

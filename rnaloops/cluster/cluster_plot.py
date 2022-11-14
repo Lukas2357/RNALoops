@@ -12,14 +12,16 @@ def do_plot(
         abline=False,
         dpi=100,
         n_bins=30,
-        user_ids=None,
+        ids=None,
         show_cluster_of=None,
         plot_center=False,
         save=True,
         plot_labels=False,
         s=60,
         scale=1,
-        fontsize=10):
+        fontsize=10,
+        legend=False,
+):
     """Do plot function to be called from clustering
 
     Args:
@@ -36,9 +38,9 @@ def do_plot(
 
     else:
         ax = cluster_pairs_plot(data, result['labels'], abline=abline,
-                                path=path, dpi=dpi, user_ids=user_ids,
+                                path=path, dpi=dpi, ids=ids,
                                 show_cluster_of=show_cluster_of, save=save,
                                 plot_labels=plot_labels, s=s, scale=scale,
-                                fontsize=fontsize)
+                                fontsize=fontsize, legend=legend)
 
     return ax

@@ -1,6 +1,7 @@
 """Helper functions for rnaloops"""
 
 import os
+import warnings
 
 from .constants import PATHS
 import pandas as pd
@@ -36,7 +37,11 @@ def mypath(folder, file=None, create_if_missing=False, subfolder=None):
 
     """
 
-    folder = PATHS[folder] if folder in PATHS.keys() else folder
+    constant_folder = folder in PATHS.keys()
+    if not constant_folder and folder == folder.upper():
+        warnings.warn('Uppercase folders should be defined in constants/PATHS!')
+    folder = PATHS[folder] if constant_folder else folder
+
     folder = folder if subfolder is None else os.path.join(folder, subfolder)
 
     if not os.path.isdir(folder):
@@ -52,7 +57,8 @@ def mypath(folder, file=None, create_if_missing=False, subfolder=None):
     return path
 
 
-def save_data(df: pd.DataFrame, filename: str, formats=('csv', 'xlsx')):
+def save_data(df: pd.DataFrame, filename: str, formats=('csv', ),
+              folder='DATA_PREP'):
     """Save the data in csv and/or xlsx format
 
     Parameters
@@ -63,15 +69,21 @@ def save_data(df: pd.DataFrame, filename: str, formats=('csv', 'xlsx')):
         The name of the file to save
     formats : tuple[str], default ('csv', 'xlsx')
         The formats to save the raw_data in
+    folder : string
+        The folder to save data in
 
     """
     if 'csv' in formats:
-        data_file = mypath('PREP_DATA_PATH', filename + '.csv')
+        data_file = mypath(folder, filename + '.csv')
         df.to_csv(data_file)
 
     if 'xlsx' in formats:
-        data_file = mypath('PREP_DATA_PATH', filename + '.xlsx')
+        data_file = mypath(folder, filename + '.xlsx')
         df.to_excel(data_file)
+
+    if 'pkl' in formats:
+        data_file = mypath(folder, filename + '.pkl')
+        df.to_pickle(data_file)
 
 
 def save_figure(name=None, fig=None, tight=True, dpi='figure',

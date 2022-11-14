@@ -11,7 +11,7 @@ from seaborn import clustermap
 from sklearn.cluster import AgglomerativeClustering, KMeans, MeanShift, \
     SpectralClustering, estimate_bandwidth, DBSCAN, OPTICS
 
-from ..config.helper import save_figure, save_data
+from ..config.helper import save_figure, save_data, mypath
 
 
 def get_folder_path(alg: str, features: list) -> str:
@@ -25,8 +25,7 @@ def get_folder_path(alg: str, features: list) -> str:
         str: The folder path to store results
         
     """
-    folder_path = mypath('results', 'cluster', alg)
-    os.makedirs(folder_path, exist_ok=True)
+    folder_path = mypath('cluster', alg, create_if_missing=True)
 
     tag = '-'.join(features) if len(features) < 7 \
         else '-'.join(features[:7]) + f'-and_{len(features)-7}_more'
@@ -47,10 +46,10 @@ def save_cluster_result(combis: list, result: dict, path: str):
     """
 
     for idx, df in enumerate(combis):
-        save_data(df, os.path.join(path, f'combi_{idx}'))
+        save_data(df, filename=f'combi_{idx}', folder='results/csv')
     for param, df in result.items():
         if param != "model":
-            save_data(df, os.path.join(path, param))
+            save_data(df, filename=param, folder='results/csv')
 
 
 def get_feature_combis(df: pd.DataFrame, features: list, dim=2) -> list:
@@ -65,6 +64,7 @@ def get_feature_combis(df: pd.DataFrame, features: list, dim=2) -> list:
         list: A list of combinations of features
 
     """
+    
     selected_df = df[features]
 
     combis = [pd.concat([selected_df[combi[i]] for i in range(dim)], axis=1)
@@ -125,7 +125,6 @@ def generate_model(alg: str, n_cluster: int, data: pd.DataFrame) -> any:
     elif alg == 'meanshift':
         bandwidth = estimate_bandwidth(data)
         bandwidth = None if bandwidth < 10 ** -6 else bandwidth
-        bandwidth = 10
         print(f'MeanShift bandwidth: {bandwidth}')
         model = MeanShift(bandwidth=bandwidth)
         
@@ -182,10 +181,10 @@ def log_result(result: dict):
     for col in result['labels'].columns:
         lab = result['labels'][col]
         
-        print(f'User cluster indices found for {col}:')
+        print(f'Cluster indices found for {col}:')
         
         ids = [' ' + str(i) for i in range(10)] + \
               [str(i) for i in range(10, len(lab))]
         
-        print('User_ID:', *ids)
+        print('ids:', *ids)
         print('Cluster:', *[' ' + str(i) for i in lab])

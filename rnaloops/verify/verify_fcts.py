@@ -14,7 +14,7 @@ def get_qualities():
         -> see mmcif_parser.PdbStructure.check_structure for details
 
     """
-    pdb_ids = [x[:-4] for x in os.listdir('structures')]
+    pdb_ids = [x[:-4] for x in os.listdir(mypath('STRUCTURES'))]
     qualities = []
     categories = []
     if pdb_ids:
@@ -34,7 +34,7 @@ def get_qualities():
 def plot_qualities(save=False):
     """Plot the number of indices in each quality class as histogram"""
 
-    qualities = joblib.load("qualities.csv")
+    qualities = joblib.load(mypath('LOOP_DATA', 'qualities.csv'))
     fig, ax = plt.subplots(figsize=(10, 5), dpi=250)
     ax.barh(range(len(qualities[-1])), qualities[-1][::-1])
 

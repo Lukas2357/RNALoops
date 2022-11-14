@@ -4,8 +4,9 @@ import os
 import joblib
 import pandas as pd
 
-from ..config.helper import mypath
-from ..prepare.data_loader import load_data
+from ..config.helper import mypath, save_data
+from ..prepare.data_loader import load_data, load_sequence_map
+from ..verify.mmcif_parser import load_full_structure
 from ..verify.verify_fcts import load_qualities
 
 
@@ -295,3 +296,157 @@ def order_df(save=False, load=False):
         joblib.dump(new_df, file_path)
 
     return new_df
+
+
+def get_chain_configs(input_df='_cleaned_L2', seq=False) -> pd.DataFrame:
+    """Get the chain configuration as id for all multiloops in RNALoops
+
+    Chain configuration uniquely identifies a position in a chain.
+    All chains found in RNALoops are assigned an integer by the
+    load_sequence_map function. Chains with the exact same sequence of bases
+    are assigned the same integer. Positions within a chain are also identified
+    by an integer, as specified by authors in pdb.
+    The get_chain_configs function simply transforms the start positions of
+    all strands in a multiloop in a string like "<CHAIN_ID>|<POSITION_ID>",
+    concatenates all these strings and assigns new ids to any unique string
+    created by that. This id is the same for any two multiloops, if they
+    occur at the same position in chains with equal sequences.
+
+    Parameters
+    ----------
+    input_df : string
+        The initial data to use from the prepared data pkl files
+    seq : bool
+        Whether to store chain sequences (False reduces file size significantly)
+
+    Returns
+    -------
+        The initial df extended by chain config columns
+
+    """
+    df = load_data(input_df)
+    pdb_ids = df.home_structure.str.unique()
+    seq_map = load_sequence_map()
+    base_orders = {x: load_full_structure(x).base_order for x in pdb_ids}
+
+    cols = [x for x in df.columns if 'start' in x]
+
+    def map_chain_idx(x, y):
+        try:
+            return base_orders[x].loc[y, 'chain_idx']
+        except KeyError:
+            return ''
+
+    def map_chain(x):
+        try:
+            return seq_map.loc[x, 'idx']
+        except KeyError:
+            return ''
+
+    def get_chain_details(item, column, i):
+        if len(item) == 0:
+            return ''
+        if len(item) == 1 and i == 1:
+            return ''
+        try:
+            if column == 'author':
+                return item[i]
+            return seq_map.loc[item[i], column]
+        except KeyError:
+            return ''
+
+    for idx, col in enumerate(cols):
+        df_col = df[col].str.split('-').str[0]
+        chain = (df.home_structure.str.upper() + '-' + df_col)
+        df[f'start_{idx + 1}_label'] = chain
+        df[col + '_pos'] = df.apply(lambda x: map_chain_idx(x.home_structure,
+                                                            x[col]), axis=1)
+        df[f'start_{idx + 1}_author_chain'] = df_col
+        df[f'start_{idx + 1}_chain'] = chain.apply(map_chain)
+
+    cols = [x for x in df.columns if '_chain' in x or '_pos' in x]
+    df[cols] = df[cols].fillna('')
+
+    joined = df[cols].apply(lambda row: '|'.join(row.values.astype(str)),
+                            axis=1)
+    unique = joined.unique()
+    joined = joined.map({x: y for x, y in zip(unique, range(len(unique)))})
+
+    df['chain_config'] = df.parts_seq + '-' + [str(x) for x in joined]
+
+    cols = [x for x in df.columns if "_label" in x]
+    df[cols] = df[cols].fillna("")
+
+    joined = df[cols].apply(lambda row: "|".join(row.values.astype(str)),
+                            axis=1)
+    chains = (
+        joined.str.split("|")
+        .apply(set)
+        .apply(lambda x: [i for i in x if i and i[-1] != "-"][:2])
+    )
+
+    cols = ['label', 'organism', 'idx']
+    if seq:
+        cols.append('seq')
+
+    for col in cols:
+        for idx in [0, 1]:
+            new_col = chains.apply(get_chain_details, column=col, i=idx)
+            df[f'chain_{idx}_{col}'] = new_col
+
+    cols = [x for x in df.columns if "author_chain" in x]
+    df[cols] = df[cols].fillna("")
+
+    joined = df[cols].apply(lambda row: "|".join(row.values.astype(str)),
+                            axis=1)
+
+    author_chains = (
+        joined.str.split("|")
+        .apply(set)
+        .apply(lambda x: [i for i in x if i and i[-1] != "-"][:2])
+    )
+    for idx in [0, 1]:
+        new_col = author_chains.apply(get_chain_details, column='author', i=idx)
+        df[f'chain_{idx}_author_id'] = new_col
+
+    df = df.drop([c for c in df.columns if 'label' in c and 'start' in c],
+                 axis=1)
+
+    return df
+
+
+def save_extended_dfs(input_df='_cleaned_L2'):
+    """Add chain configuration column to df and save the extended df
+
+    The new column concatenates the parts_seq column with the chain
+    configuration id (transformed to string) with a '-' between the two.
+
+    Parameters
+    ----------
+    input_df : string
+        The initial data to use from the prepared data pkl files
+
+    """
+    new_df = get_chain_configs(input_df)
+
+    save_data(new_df, f'rnaloops_data{input_df}_with_chains')
+
+
+def get_chain_counts(col, save=False, kind='cleaned_L2_with_chains'):
+    """Get the number of multiloop and unique pdb ids for all chain specs"""
+
+    df = load_data(kind)
+    grouped = df.groupby([col])
+
+    agg = grouped.agg(
+        hosts_overall_n_multiloops=("home_structure", "count"),
+        found_in_n_different_home_structures=("home_structure", "nunique"),
+    )
+
+    result = agg.sort_values(['hosts_overall_n_multiloops', col],
+                             ascending=[False, True])
+
+    if save:
+        result.to_csv(mypath(folder='RESULTS', file=f'{col}.csv'))
+
+    return result

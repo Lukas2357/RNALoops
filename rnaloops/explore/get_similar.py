@@ -5,6 +5,7 @@ from rnaloops.engineer.add_features import load_agg_df
 
 
 def get_similar_seq(sequence, df=None, z=3, verbose=1):
+
     if df is None:
         df = load_agg_df()
 
@@ -33,7 +34,7 @@ def get_similar_seq(sequence, df=None, z=3, verbose=1):
             if s1 != 0:
                 std_diff_left.append(abs(m1 - m2) / s1)
             else:
-                std_diff.append(0)
+                std_diff_left.append(0)
             if verbose > 2:
                 m2s.append(m2)
         std_diff_mean = np.mean(std_diff)
@@ -62,6 +63,7 @@ def get_similar_seq(sequence, df=None, z=3, verbose=1):
 
 
 def get_similar_df(agg, sequences, n_max=10 ** 6):
+
     results = []
     sep = pd.DataFrame([['-' * 50, np.nan, np.nan, np.nan]])
 
@@ -84,6 +86,7 @@ def get_similar_df(agg, sequences, n_max=10 ** 6):
 
 
 def get_mean_diffs(sequences, counts):
+
     sims = pd.read_csv('results/similar_sequences.csv')
 
     sequence_counts = {key: value for key, value in zip(sequences, counts)}

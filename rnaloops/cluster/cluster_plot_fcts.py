@@ -6,9 +6,10 @@ import seaborn as sns
 import colorcet as cc
 
 from .cluster_plot_help_fcts import *
-from ..config.helper import save_figure, mypath
+from ..config.helper import save_figure
 
 pd.options.mode.chained_assignment = None  # default='warn'
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 
 def heatmap(title, data, save, path=None, filename='map', dpi=120, **kwargs):
@@ -33,12 +34,7 @@ def heatmap(title, data, save, path=None, filename='map', dpi=120, **kwargs):
     plt.title(title, fontweight='bold')
     plt.tight_layout()
 
-    if path is None:
-        spath = mypath('RESULTS', filename, subfolder='heatmaps')
-    else:
-        spath = os.path.join(path, filename)
-
-    save_figure(save, dpi, spath, fig)
+    save_figure(filename, save=save, dpi=dpi, folder=path+'/Heatmaps')
 
     return fig
 
@@ -68,8 +64,6 @@ def correlation_heatmap(df, features=None, save=False, dpi=150,
         min_cor (float): The minimum correlation
 
     """
-
-    df = df.drop(['User'], axis=1)
 
     if features is None:
         features = df.columns
@@ -125,7 +119,7 @@ def correlation_heatmap(df, features=None, save=False, dpi=150,
 
 def cluster_pairs_plot(pairs: list[pd.DataFrame], labels: pd.DataFrame,
                        abline=False, save=True, path="", dpi=300,
-                       user_ids=None, show_cluster_of=None,
+                       ids=None, show_cluster_of=None,
                        plot_labels=False, s=60, legend=False,
                        scale=1, fontsize=10) -> list:
     """Plot the kmeans clustering result for a pair of features
@@ -137,13 +131,13 @@ def cluster_pairs_plot(pairs: list[pd.DataFrame], labels: pd.DataFrame,
         save (bool): Whether to save the figure
         path (string): Path to save the figure
         dpi (int): Dots per inch for saving the figure
-        user_ids (any): User ids to annotate in the plot, uses index if None
+        ids (any): ids to annotate in the plot, uses index if None
         show_cluster_of (list): Feature combi whose clusters shown in all plots
-        s
-        fontsize
-        scale
-        legend
-        plot_labels
+        s (int): Marker size in plots
+        fontsize (int) Fontsize for the plot
+        scale (int): Scale factor for the plot
+        legend (bool): Whether to show legend
+        plot_labels (bool): Whether to plot labels
 
     """
     ax, label = init_subplots_plot(len(pairs), scale=scale, dpi=dpi), ''
@@ -155,14 +149,14 @@ def cluster_pairs_plot(pairs: list[pd.DataFrame], labels: pd.DataFrame,
 
         c_ax = get_current_axis(pairs, ax, idx)
 
-        x_data, y_data = data.iloc[:, 0], data.iloc[:, 1]
+        x_data, y_data = data[data.columns[0]], data[data.columns[1]]
         x_tag, y_tag = data.columns[0], data.columns[1]
 
         if show_cluster_of is None or len(label) == 0:
             if (x_tag, y_tag) in labels.columns:
                 c_label = [i + 1 for i in labels[(x_tag, y_tag)]]
             else:
-                c_label = [i + 1 for i in labels.iloc[:, 0]]
+                c_label = [i + 1 for i in labels[labels.columns[0]]]
         else:
             c_label = label
 
@@ -171,21 +165,27 @@ def cluster_pairs_plot(pairs: list[pd.DataFrame], labels: pd.DataFrame,
         nc = len(labels[labels.columns[0]].unique())
         palette = sns.color_palette(cc.glasbey, n_colors=nc)
 
-        sns.scatterplot(x=x_data, y=y_data, ax=c_ax, hue=c_label,
-                        palette=palette, legend=legend, s=s)
+        a = sns.scatterplot(x=x_data, y=y_data, ax=c_ax, hue=c_label,
+                            palette=palette, legend=legend, s=s)
 
-        user_ids = data.index if user_ids is None else user_ids
+        if legend:
+            a.legend(fontsize=fontsize/2, ncols=int(np.sqrt(nc)),
+                     markerscale=0.25)
+
+        ids = data.index if ids is None else ids
 
         if plot_labels:
-            for i, j in enumerate(user_ids):
+            for i, j in enumerate(ids):
                 c_ax.annotate(str(j), [
                     list(x_data)[i],
                     list(y_data)[i]
                 ], horizontalalignment='center',
-                              verticalalignment='center', size=5)
+                   verticalalignment='center', size=5)
 
-            c_ax.set_title(f"{x_tag} vs {y_tag}", fontweight='semibold')
             set_labels(pairs, x_tag, c_ax, 2, y_tag)
+
+        c_ax.set_title(f"{x_tag} vs {y_tag}", fontweight='semibold')
+
         if abline:
             end = min(max(y_data), max(x_data))
             c_ax.plot([0, end], [0, end], 'r-')
@@ -201,13 +201,16 @@ def cluster_pairs_plot(pairs: list[pd.DataFrame], labels: pd.DataFrame,
                       max(y_data) + 0.005 * y_range)
 
     plt.tight_layout()
-    save_figure(save=save, dpi=dpi, name="scatterplot", folder=path)
+    save_figure(os.path.basename(path), save=save, dpi=dpi,
+                folder=os.path.dirname(path),
+                create_if_missing=True)
 
     return ax
 
 
 def cluster_single_plot(columns: list[pd.DataFrame], labels: pd.DataFrame,
-                        save=True, path="", dpi=300, n_bins=20) -> list:
+                        save=True, path="", dpi=300, n_bins=20,
+                        scale=1) -> list:
     """Plot the kmeans clustering result for single features
 
     Args:
@@ -217,19 +220,21 @@ def cluster_single_plot(columns: list[pd.DataFrame], labels: pd.DataFrame,
         path (string): Path to save the figure
         dpi (int): Dots per inch for saving the figure
         n_bins (int): Number of bins to show in histogram
+        scale (float): Scale factor for plots.
         
     Returns:
         list: List of axes of the plots
 
     """
-    ax = init_subplots_plot(len(columns))
+    ax = init_subplots_plot(len(columns), scale=scale, dpi=dpi)
 
     for idx, data in enumerate(columns):
         c_ax = get_current_axis(list(labels.columns), ax, idx)
-        data = data.reset_index().drop('index', axis=1)
+        idx_name = data.index.name
+        data = data.reset_index().drop(idx_name, axis=1)
         tag = data.columns[0]
         label = [i + 1 for i in labels[(tag,)]]
-        data = pd.concat([data.iloc[:, 0], pd.Series(label)], axis=1)
+        data = pd.concat([data[data.columns[0]], pd.Series(label)], axis=1)
         data.columns = [tag, 'label']
         legend = True if idx == 0 else False
         if len(data[tag].unique()) < 10:
@@ -246,7 +251,9 @@ def cluster_single_plot(columns: list[pd.DataFrame], labels: pd.DataFrame,
         set_labels(columns, tag, c_ax)
 
     plt.tight_layout()
-    save_figure(save, dpi, os.path.join(path, "histogram"))
+    save_figure(os.path.basename(path), save=save, dpi=dpi,
+                folder=os.path.dirname(path),
+                create_if_missing=True)
     plt.show()
 
     return ax
@@ -280,7 +287,7 @@ def plot_kmeans_centers(centers: pd.DataFrame, centers_inv: pd.DataFrame,
 
     plt.suptitle('Cluster centers of kMeans', fontweight='bold')
     plt.tight_layout()
-    save_figure(save, dpi, os.path.join(path, "center"))
+    save_figure("center", folder=path, save=save, dpi=dpi)
     plt.show()
 
 
@@ -289,7 +296,7 @@ def get_color_label(show_cluster_of: list, labels: pd.DataFrame) -> list:
 
         Args:
             show_cluster_of (list): List of features to show the clusters of
-            labels (pd.DataFrame): The user labels of the corresponding clusters
+            labels (pd.DataFrame): The labels of the corresponding clusters
 
         """
     label = []
@@ -320,7 +327,7 @@ def string_ratio_grid(ratios_df, clustermap=True, pad='max', exclude='G',
         dpi (int): Dpi of the clustermap
 
     Returns:
-        np.array: The grid of user vs user similarity ratios
+        np.array: The grid of sequence vs sequence similarity ratios
 
     """
 
@@ -340,8 +347,8 @@ def string_ratio_grid(ratios_df, clustermap=True, pad='max', exclude='G',
             pd.DataFrame(grid), xticklabels=True, yticklabels=True
         ).ax_col_dendrogram.set_title("Similarity of User LearnType Strings")
 
-        path = mypath('RESULTS', 'string_similarities', subfolder='heatmaps')
-        save_figure(save=save, path=path, dpi=dpi, fig_format='jpg')
+        save_figure('string_similarities', folder='heatmaps', save=save, 
+                    dpi=dpi, fig_format='jpg')
 
     return grid
 
@@ -388,12 +395,7 @@ def plot_significant_corrs(numeric, df, dpi=300, save=False,
     plt.tick_params(axis='both', which='major', labelbottom=False,
                     bottom=False, top=False, labeltop=True)
 
-    if path is None:
-        spath = mypath('RESULTS', filename, subfolder='heatmaps')
-    else:
-        spath = os.path.join(path, filename)
-
-    save_figure(save, dpi, spath, fig)
+    save_figure(filename, folder=path + '/heatmaps', save=save, dpi=dpi)
 
     return fig
 

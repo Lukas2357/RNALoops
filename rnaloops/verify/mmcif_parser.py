@@ -110,6 +110,8 @@ class PdbStructure:
             prev -> The previous base position label
             next -> The next base position label
             idx -> Sequential increment index
+            chain -> The chain label
+            chain_idx -> Sequential incrementing index per chain
 
             Different chains are not separated. To obtain a chain break check:
             df.at[label, 'next'].split('-')[0] != label.split('-')[0]
@@ -145,6 +147,13 @@ class PdbStructure:
         base_order_df['next'] = next_bases
         # Add index:
         base_order_df['idx'] = range(len(base_order))
+        # Add chain_label:
+        base_order_df['chain'] = base_order_df.index.str.split('-').str[0]
+        # Add chain index:
+        chain_idx = []
+        for count in base_order_df.groupby('chain', sort=False).count()['idx']:
+            chain_idx += list(range(count))
+        base_order_df['chain_idx'] = chain_idx
 
         return base_order_df
 
@@ -456,7 +465,7 @@ def get_full_structures(idx_min=0, idx_max=0, df=None):
 
     for count, pdb_id in enumerate(pdb_ids[idx_min:idx_max + 1]):
 
-        if f'{pdb_id}.pkl' in os.listdir('structures'):
+        if f'{pdb_id}.pkl' in os.listdir(mypath('STRUCTURES')):
             continue
 
         print('\n--- Get home structure', pdb_id,
@@ -489,7 +498,7 @@ def get_full_structures_parallel(idx_min=0, idx_max=1794, n_pools=8):
 def load_full_structure(pdb_id=None):
     """Load a PdbStructure object with given pdb_id from disk"""
     if pdb_id is None:
-        pdb_ids = [x[:-4] for x in os.listdir('structures')]
+        pdb_ids = [x[:-4] for x in os.listdir(mypath('STRUCTURES'))]
         pdb_id = random.choice(pdb_ids)
         print(f'No id specified... choosing random {pdb_id}')
     with open(mypath('STRUCTURES', f'{pdb_id}.pkl'), 'rb') as f:

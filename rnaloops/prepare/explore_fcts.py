@@ -2,10 +2,13 @@
 
 import os.path
 import random
+import shutil
+import warnings
 import webbrowser
 from time import sleep
 
 from IPython.display import SVG, display
+from cairosvg import svg2png
 
 from .data_loader import load_data
 from ..obtain.getter_fcts import *
@@ -82,7 +85,7 @@ def show_structure(indices=None, df=None, pdf=False, web=True, svg=False,
             path = open_data_pdf(idx, keep_files=keep_files)
             print(f'Structure pdf file: {path}')
         if svg:
-            path = open_svg_image(idx, keep_files=keep_files)
+            path = open_svg_image(idx)
             print(f'Structure svg file: {path}')
 
     if return_df:
@@ -113,18 +116,43 @@ def open_web_page(indices, scale=1):
     return urls
 
 
-def open_svg_image(idx, keep_files=False):
+def open_svg_image(idx, get_png=False, display_svg=True):
     """Download and open svg image corresponding to structure of idx"""
-    get_structure([idx], pdf=False, svg=True)
-    path = [file for file in os.listdir() if 'svg' in file][0]
 
-    display(SVG(path))
-    if not keep_files:
-        os.remove(path)
-        print(f'File removed to keep cwd clean, keep_svg=True to keep')
+    os.mkdir(f'{idx}')
+    os.chdir(f'{idx}')
 
-    if os.path.isfile(path[:-3] + 'cif'):
-        os.remove(path[:-3] + 'cif')
+    warnings.filterwarnings('ignore', category=ResourceWarning)
+
+    path, count = [], 0
+    while len(path) == 0:
+        get_structure([idx], pdf=False, svg=True)
+        path = [file for file in os.listdir() if '.svg' in file]
+        count += 1
+        if count > 5:
+            print(f'Tried downloading svg {count} times, '
+                  f'may be a connection issue...')
+        if count == 10:
+            print('Tried download svg 10 times, abort...')
+            raise ValueError('Could not download SVG Image!')
+    file = path[0]
+
+    os.chdir('..')
+
+    if display_svg:
+        display(SVG(file))
+    if get_png:
+        with open(os.path.join(f'{idx}', file), 'rb') as f:
+            content = f.read()
+            x = 1000
+            subfolder = f'{int((int(idx) // x) * x)}-' \
+                        f'{int((int(idx) // x + 1) * x)}'
+            png_path = mypath('SEQ_PNG', subfolder=subfolder, file=f'{idx}.png')
+            svg2png(bytestring=content, write_to=png_path)
+
+    warnings.filterwarnings('default', category=ResourceWarning)
+
+    shutil.rmtree(f'{idx}')
 
     return path
 
@@ -171,12 +199,11 @@ def explore_duplicate_sequences(df):
     counts = pd.DataFrame(df[cols].value_counts())
     grouped = counts.groupby(level=0).count()
     duplicates = 0
-    
+
     for c, entry in enumerate(grouped[grouped[0] > 1].index):
 
-        if (all(s in counts.loc[entry].index.values[1] 
+        if (all(s in counts.loc[entry].index.values[1]
                 for s in counts.loc[entry].index.values[0])):
-            
             print("-----", entry)
             duplicates += sum(counts.loc[entry].iloc[1:, 0].values)
             print(*counts.loc[entry].index.values, sep="\n")

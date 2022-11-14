@@ -5,11 +5,12 @@ from .cluster_plot import do_plot
 from .cluster_fcts import *
 
 
-def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1, 
+def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2,), dim=1,
                alg='k_means', scaler='Standard', plot=True, pca=False,
-               lineplots=False, abline=False, c_thresh=2, learntypes=None, 
-               n_bins=20, dpi=100, show_cluster_of=None, save=True,
-               elbow=False, silhouette=False, plot_center=False, 
+               abline=False, c_thresh=2, legend=False,
+               n_bins=20, dpi=300, show_cluster_of=None, save=True,
+               elbow=False, silhouette=False, plot_center=False,
+               s=60, scale=1, fontsize=7, silhouette_plot=True,
                verbose=False):
     """Do cluster function to be called from the Analyst
 
@@ -22,10 +23,9 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
         scaler (str, optional): The scaler used. Defaults to 'Standard'.
         plot (bool, optional): Whether to plot results. Defaults to True.
         pca (bool, optional): Whether to do PCA afterwards. Defaults to True.
-        lineplots (bool, optional): Whether to show lineplots. Defaults to True.
         abline (bool, optional): Whether to show abline. Defaults to False.
         c_thresh (int, optional): Color threshold of dendrogram. Defaults to 2.
-        learntypes (any, optional): Learntypes for lineplots. Defaults to None.
+        legend (bool, optional): Whether to show legend. Defaults to False.
         n_bins (int, optional): Number of bins in histograms. Defaults to 20.
         dpi (int, optional): Dots per inch for figures. Defaults to 100.
         show_cluster_of (list, optional): The features whose clusters are shown 
@@ -34,11 +34,15 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
         elbow (bool): Whether to show elbow plots (only for kmeans)
         silhouette (bool): Whether to show silhouette plots
         plot_center (bool): Whether to plot the centers of kMeans clustering
+        silhouette_plot (bool): Whether to plot silhouette plots
         verbose (bool): Whether to log actions
-    
+        fontsize (float): Size of the fonts in plot.
+        scale (float, optional): Scale factor of plots.
+        s (float): Marker size in plots.
+
     """
     folder_path = get_folder_path(alg, features)
-    user_ids = list(data.User)
+    result, res_data = None, None
 
     if alg == 'hierarchy':
 
@@ -46,7 +50,7 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
 
         kwargs = {'dim': dim, 'c_threshold': c_thresh,
                   'file_path': file_path, 'dpi': dpi}
-        
+
         if verbose:
             print('-> Performing hierarchy clustering, generates and saves '
                   'cluster map and dendrogram ... ')
@@ -59,16 +63,10 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
                     print('-> Generate PCA (no preview, just saved)... to '
                           'avoid set an.create_pca=False ...')
                 do_pca(res_data, result['labels'], file_path, None, scaler,
-                       user_ids=user_ids, save=save)
+                       save=save, scale=scale, s=s)
             else:
                 if verbose:
                     print('-> PCA only supported for dim > 2')
-        if lineplots:
-            if verbose:
-                print('-> Generate Lineplots... to avoid set '
-                      'an.create_lineplots=False ...')
-            result.index = data.User
-            do_lineplots(result, dpi, file_path, learntypes, user_ids)
 
     else:
         for n in n_clusters:
@@ -76,8 +74,8 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
 
             cluster_kwargs = {'features': features, 'n_cluster': n,
                               'dim': dim, 'scale': scaler, 'alg': alg,
-                              'path': file_path}
-            
+                              'path': file_path, 'save': save}
+
             if verbose:
                 if alg == 'k_means':
                     print(f'-> Performing {alg} clustering ... generating '
@@ -92,9 +90,11 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
 
             plot_kwargs = {'alg': alg, 'dim': dim, 'path': file_path,
                            'abline': abline, 'dpi': dpi, 'n_bins': n_bins,
-                           'user_ids': list(data['User']), 'save': save,
+                           'ids': list(data.index), 'save': save,
                            'show_cluster_of': show_cluster_of,
-                           'plot_center': plot_center}
+                           'plot_center': plot_center, 's': s,
+                           'scale': scale, 'fontsize': fontsize,
+                           'legend': legend}
             if plot:
                 if dim < 3:
                     do_plot(res_data, result, **plot_kwargs)
@@ -103,6 +103,10 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
                               'an.create_plots=False ...')
                 else:
                     for entry in res_data:
+                        new_file_path = os.path.join(
+                            file_path, '-'.join(entry.columns)
+                        )
+                        plot_kwargs['path'] = new_file_path
                         combis = get_feature_combis(entry, entry.columns)
                         do_plot(combis, result, **plot_kwargs)
                         if verbose:
@@ -114,20 +118,12 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
                     if verbose:
                         print('-> Generate PCA (no preview)... to '
                               'avoid set create_pca=False ...')
-                    do_pca(res_data, labels, file_path, center, scaler,
-                           user_ids=user_ids)
+                    do_pca(res_data, labels, file_path, scaler,
+                           scale=scale, s=s, save=save)
+
                 else:
                     if verbose:
                         print('-> PCA only supported for dim > 2')
-
-            if lineplots:
-                if verbose:
-                    print('-> Generate Lineplots... to avoid set '
-                          'an.user_lineplots=False ...')
-                do_lineplots(result, dpi, file_path, learntypes, user_ids)
-                if verbose:
-                    print('-> Saved all plots to corresponding folders and '
-                          'results_new folder.')
 
         if elbow:
             if alg == "k_means":
@@ -142,14 +138,20 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2, ), dim=1,
                     print("-> Elbow plot only supported for kmeans.")
 
         if silhouette:
-            if dim < 3:
-                file_path = os.path.join(folder_path, f"{dim}D")
-                if verbose:
-                    print('-> Generate silhouette plots... to avoid set '
-                          'an.silhouette=False ...')
-                silhouette_analysis(data, features, dim, n_clusters=[2, 3, 4],
-                                    alg=alg, scale=scaler, save=save,
-                                    path=file_path, dpi=dpi)
-            else:
-                if verbose:
-                    print("-> Silhouette plots only supported for dim < 3.")
+            silhouette_plot = silhouette_plot if dim >= 3 else True
+            file_path = os.path.join(folder_path, f"{dim}D")
+            if verbose:
+                print('-> Generate silhouette plots... to avoid set '
+                      'an.silhouette=False ...')
+            result = silhouette_analysis(data, features, dim,
+                                         n_clusters=n_clusters,
+                                         alg=alg, scale=scaler, save=save,
+                                         path=file_path, dpi=dpi,
+                                         plot=silhouette_plot)
+
+            return result
+
+    for i, c in enumerate(result['labels'].columns):
+        res_data[i]['label_' + '_'.join(c)] = result['labels'][c]
+
+    return res_data

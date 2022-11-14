@@ -63,6 +63,9 @@ def get_structure(indices, verbose=False, pdf=True, svg=False):
                     if verbose:
                         print(f'Downloaded {url} svg (file {count})')
 
+        driver.close()
+        driver.quit()
+
         el = default_timer() - start
         if len(indices) > 100:
             print(f'Worker scanned {indices_checked} urls '
