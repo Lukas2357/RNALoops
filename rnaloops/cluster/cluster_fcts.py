@@ -1,6 +1,5 @@
 """Functions for the clustering.py module"""
 import os.path
-import warnings
 from random import sample
 
 import numpy as np
@@ -9,7 +8,6 @@ from scipy.cluster.hierarchy import dendrogram
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.decomposition import PCA
 from plotly import express as px
-import matplotlib.colors as mcolors
 
 
 from .cluster_help_fcts import *

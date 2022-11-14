@@ -2,7 +2,7 @@
 
 from rnaloops.cluster.clustering import do_cluster
 from rnaloops.engineer.add_features import load_agg_df
-from rnaloops.prepare.data_loader import load_data
+# from rnaloops.prepare.data_loader import load_data
 
 way = 3
 

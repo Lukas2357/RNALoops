@@ -274,10 +274,7 @@ def plot_kmeans_centers(centers: pd.DataFrame, centers_inv: pd.DataFrame,
     centers_dfs = get_centers_list(centers)
     centers_inv_dfs = get_centers_list(centers_inv)
 
-    first_df = centers_dfs[0]
-    scales = len(first_df.columns) * 1.5, len(first_df.index) * 0.5 + 1
-
-    ax = init_subplots_plot(len(centers_dfs), scales=scales)
+    ax = init_subplots_plot(len(centers_dfs), scale=0.5)
 
     for idx, df in enumerate(centers_dfs):
         c_ax_0 = get_current_axis(centers_dfs, ax, idx)
@@ -313,16 +310,14 @@ def get_color_label(show_cluster_of: list, labels: pd.DataFrame) -> list:
     return label
 
 
-def string_ratio_grid(ratios_df, clustermap=True, pad='max', exclude='G',
-                      replace=None, save=False, dpi=300) -> np.array:
+def string_ratio_grid(ratios_df, clustermap=True, pad='max',
+                      save=False, dpi=300) -> np.array:
     """Get a grid for string ratios and possibly plot it as clustermap
 
     Args:
         ratios_df (pd.DataFrame): Df as returned by get_learntype_string_ratios
         clustermap (bool): Whether to plot the clustermap
         pad (str) pad parameter passed to get_learntype_string_ratios
-        exclude (str): exclude parameter passed to get_learntype_string_ratios
-        replace (dict): replace parameter passed to get_learntype_string_ratios
         save (bool): Whether to save the clustermap
         dpi (int): Dpi of the clustermap
 
@@ -332,8 +327,7 @@ def string_ratio_grid(ratios_df, clustermap=True, pad='max', exclude='G',
     """
 
     if ratios_df is None:
-        ratios_df = get_learntype_string_ratios(pad=pad, exclude=exclude,
-                                                replace=replace)
+        ratios_df = get_learntype_string_ratios(pad=pad)
 
     max_user = max(ratios_df.user1)
     grid = np.zeros([max_user + 1, max_user + 1])
@@ -348,7 +342,7 @@ def string_ratio_grid(ratios_df, clustermap=True, pad='max', exclude='G',
         ).ax_col_dendrogram.set_title("Similarity of User LearnType Strings")
 
         save_figure('string_similarities', folder='heatmaps', save=save, 
-                    dpi=dpi, fig_format='jpg')
+                    dpi=dpi, fformat='jpg')
 
     return grid
 

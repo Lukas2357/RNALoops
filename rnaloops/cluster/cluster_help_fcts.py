@@ -35,13 +35,12 @@ def get_folder_path(alg: str, features: list) -> str:
     return folder_path
 
 
-def save_cluster_result(combis: list, result: dict, path: str):
+def save_cluster_result(combis: list, result: dict):
     """Save the result raw_data of a clustering process
 
     Args:
         combis (list): The feature combis used
         result (dict): The result dict with labels, centers, ...
-        path (str): Path to where results should be saved
         
     """
 
@@ -98,7 +97,9 @@ def cluster_map(df: pd.DataFrame, save=True, path='', dpi=300) -> clustermap:
     plt.setp(c_map.ax_heatmap.yaxis.get_majorticklabels(), rotation=0)
     c_map.cax.set_visible(False)
     plt.tight_layout()
-    save_figure(save=save, path=path, dpi=dpi, fig_format='jpg')
+    save_figure(path.split('/')[-1], save=save,
+                folder='/'.join(path.split('/')[:-1]),
+                dpi=dpi, fformat='jpg')
     plt.show()
 
     return c_map

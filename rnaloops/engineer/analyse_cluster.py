@@ -130,7 +130,7 @@ def analyse_cluster(way=3, idx=0, raw_df=None, cluster=None, agg_way=None,
 
     std = get_rolling_std(cluster_df, way, n)
 
-    std = np.array([1, 1] + [x for x in std if x != 0])
+    std = np.array([1, 1] + [x[0] for x in std if x != 0])
     density = np.array([0, 0] + list(range(1, len(std) - 1))) / std ** way
 
     return density, diff_inner, diff_all, agg_all, cluster_df, cluster_raw_df

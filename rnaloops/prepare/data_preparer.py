@@ -205,7 +205,7 @@ def save_clean_dfs():
     joblib.dump(l2, mypath('DATA_PREP', 'rnaloops_data_cleaned_L0.pkl'))
 
 
-def get_cols(idx: int) -> list[str]:
+def get_cols(idx) -> list[str]:
     """Get all columns of df with given idx"""
     if isinstance(idx, int):
         idx = [idx]

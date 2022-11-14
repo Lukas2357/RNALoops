@@ -29,8 +29,8 @@ def do_plot(
         
     """
     if alg == 'k_means' and plot_center:
-        ax = plot_kmeans_centers(result['center'], result['center_inv'],
-                                 path=path, dpi=dpi, save=save)
+        plot_kmeans_centers(result['center'], result['center_inv'],
+                            path=path, dpi=dpi, save=save)
 
     if dim == 1:
         ax = cluster_single_plot(data, result['labels'], n_bins=n_bins,

@@ -1,6 +1,5 @@
 """Helper functions for the cluster_plot_fcts.py module"""
 import difflib
-import os
 from typing import Callable
 
 from matplotlib.axes import Axes
@@ -14,7 +13,7 @@ def init_subplots_plot(n_plots: int, scale=1, dpi=100) -> list:
 
     Args:
         n_plots (int): The number of subplots to generate
-        scale (int): scale factor for plot
+        scale (float): scale factor for plot
         dpi (int): Dots per inch for plot
 
     Returns:
@@ -208,7 +207,7 @@ def get_learntype_string_ratios(strings=None, pad='max') -> pd.DataFrame:
     """
 
     df = pd.DataFrame(
-        columns=("user1", "user2", "string1", "string2", "sim_ratio")
+        columns=["user1", "user2", "string1", "string2", "sim_ratio"]
     )
 
     for user1, string1 in strings.items():

@@ -1,13 +1,11 @@
 """Evaluation of cluster by elbow method/cross validation/silhouette analysis"""
 
 from .cluster_eval_fcts import *
-from ..preparer.prep_fcts import get_feature_groups
 
 if __name__ == '__main':
 
     algorithm = 'agglomerative'
-    feature_types = ["learntype", "frequency", "level", "tot"]
-    feature_lists = [get_feature_groups()[x] for x in feature_types]
+    feature_lists = ['planar_1_median', 'planar_2_median', 'planar_3_median']
     args = [(features, dim, algorithm)
             for features in feature_lists
             for dim in range(1, 3)]

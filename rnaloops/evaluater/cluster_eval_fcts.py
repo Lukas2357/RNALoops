@@ -9,7 +9,7 @@ methods = ['elbow_plot', 'cross_valid', 'cross_average', 'sil_analysis']
 def get_file_path(feature, dim, alg, idx):
     tag = feature + '-single' if dim == 1 else feature + '-pairs'
     path = mypath(folder='RESULTS', subfolder=f'cluster/{alg}/{methods[idx]}', 
-                  file={tag})
+                  file=tag)
     return path
 
 

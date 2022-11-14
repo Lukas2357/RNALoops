@@ -14,10 +14,10 @@ from rnaloops.prepare.data_loader import load_data
 
 
 def analyse_distributions(
-        save=True, 
-        cats=("chain_config", "parts_seq"), 
+        save=True,
+        cats=("chain_config", "parts_seq"),
         ns=(40, 100, 200),
-        n_samples=(120, 75, 50), 
+        n_samples=(120, 75, 50),
         features=("planar_1", "planar_2", "planar_3"),
         plot='auto'
 ):
@@ -60,10 +60,10 @@ def analyse_distributions(
     df = load_data("_cleaned_L2_with_chains")
 
     n_samples = dict(zip(ns, n_samples))
-    
+
     # The minimum standard deviation for outlier removal. By default, >=6 is
     # interpreted as keeping all data:
-    min_stds=(3, 6)
+    min_stds = (3, 6)
 
     warnings.filterwarnings('ignore', category=RuntimeWarning)
     warnings.filterwarnings('ignore', category=UserWarning)
@@ -296,7 +296,9 @@ def plot_results(cats, ns, features, configs, save=True):
     ----------
     cats : list
         The categories analysed (chain_config, parts_seq)
-    features : list
+    ns : list
+        The number of unique sequences to include
+    features : tuple
         The features analysed (planar_1, planar_2, planar_3)
     configs : dict
         The configs result as returned by analyse_distributions
@@ -307,7 +309,7 @@ def plot_results(cats, ns, features, configs, save=True):
     for value in ["pnorm", "mean", "std"]:
         for n in ns:
             n_row = len(features)
-            fig, ax = plt.subplots(n_row, 2, figsize=(16, n_row*4), dpi=300)
+            fig, ax = plt.subplots(n_row, 2, figsize=(16, n_row * 4), dpi=300)
             for i, cat in enumerate(cats):
                 for j, feature in enumerate(features):
 
@@ -315,18 +317,20 @@ def plot_results(cats, ns, features, configs, save=True):
                     if j == 0:
                         ax[j, i].set_title(cat)
 
-                    args = configs, ax[j, i], cat, n, feature
-
                     if value == "pnorm":
-                        plot_values(*args, 'pnorm', 'median', ['r+', 'gx'],
+                        plot_values(configs, ax[j, i], cat, n, feature,
+                                    'pnorm', 'median', ['r+', 'gx'],
                                     feature + ' --- norm-test p-value')
 
                     elif value == 'mean':
-                        plot_values(*args, 'mean', 'mean', ['r+', 'gx'])
-                        plot_values(*args, 'med', 'mean', ['b.', 'k.'],
+                        plot_values(configs, ax[j, i], cat, n, feature,
+                                    'mean', 'mean', ['r+', 'gx'])
+                        plot_values(configs, ax[j, i], cat, n, feature,
+                                    'med', 'mean', ['b.', 'k.'],
                                     feature + ' --- mean and median in °')
                     else:
-                        a = plot_values(*args, 'std', 'median+std',
+                        a = plot_values(configs, ax[j, i], cat, n, feature,
+                                        'std', 'median+std',
                                         ['r+', 'gx'],
                                         feature + ' --- standard dev. in °')
                         a.set_ylim([0, 2])
@@ -335,8 +339,8 @@ def plot_results(cats, ns, features, configs, save=True):
 
             plt.tight_layout()
 
-            save_figure(name=f'micro_analysis_{value}', 
-                        folder=f'{cats[0]}_{cats[1]}/micro', 
+            save_figure(name=f'micro_analysis_{value}',
+                        folder=f'{cats[0]}_{cats[1]}/micro',
                         create_if_missing=True, save=save)
 
 
@@ -346,8 +350,8 @@ def plot_values(configs, ax, cat, n, feature, value, metric, c, ylabel=''):
     y1 = np.array(configs[(cat, str(n), "6", feature)][value])
     y2 = np.array(configs[(cat, str(n), "3", feature)][value])
 
-    y1, y2 = y1[~np.isnan(y1) & ~np.isnan(y2)], \
-             y2[~np.isnan(y2) & ~np.isnan(y1)]
+    y1, y2 = (y1[~np.isnan(y1) & ~np.isnan(y2)],
+              y2[~np.isnan(y2) & ~np.isnan(y1)])
 
     metric_fct = np.mean if metric == 'mean' else np.median
     med1 = metric_fct(y1)

@@ -108,6 +108,7 @@ def do_cluster(data: pd.DataFrame, features: list, n_clusters=(2,), dim=1,
                             scatterplot_path = os.path.join(
                                 file_path, '-'.join(entry.columns)
                             )
+                        print(scatterplot_path)
                         plot_kwargs['path'] = scatterplot_path
                         combis = get_feature_combis(entry, entry.columns)
                         do_plot(combis, result, **plot_kwargs)
