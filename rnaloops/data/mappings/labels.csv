@@ -1,0 +1,725 @@
+chain_0_label,label
+12s mitochondrial rrna,12s rrna
+12s rrna,12s rrna
+15s ribosomal rna,15s rrna
+16 ribosomal rna,16s rrna
+16s mitochondrial rrna,16s rrna
+"16s mitochondrial rrna, dna (31-mer),16s mitochondrial rrna",16s rrna
+16s ribosomal rna,16s rrna
+16s ribosomal rna fragment,16s rrna
+16s ribosomal rna rrna,16s rrna
+16s ribosomal rrna,16s rrna
+16s rna,16s rrna
+16s rrna,16s rrna
+16s rrna (1504-mer),16s rrna
+16s rrna (1540-mer),16s rrna
+16s rrna (body domain of 30s subunit),16s rrna
+16s rrna (head),16s rrna
+16s rrna mitochondrial,16s rrna
+16s small subunit ribosomal rna,16s rrna
+16srrna,16s rrna
+16srrna (head domain of the 30s ribosome),16s rrna
+17delu1a (58-mer),17delu1a
+18gaaa (52-mer),18gaaa
+18gaaa(52-mer),18gaaa
+18s,18s rrna
+18s pre-rrna,18s rrna
+18s ribosomal rna,18s rrna
+18s rna,18s rrna
+18s rrna,18s rrna
+18s rrna (1740-mer),18s rrna
+18s rrna 2,18s rrna
+18s rrna of the small ribosomal subunit,18s rrna
+19-mer ribozyme strand,19-mer ribozyme strand
+197-mer,197-mer
+20s ribosomal rna,20s rrna
+21s ribosomal rna,21s rrna
+23 s rrna (3119-mer),23s rrna
+23s large subunit ribosomal rna,23s rrna
+23s ribosomal rna,23s rrna
+"23s ribosomal rna, chloroplastic",23s rrna
+23s ribosomal rrna,23s rrna
+23s ribsomal rna,23s rrna
+23s rna,23s rrna
+23s rrna,23s rrna
+23s rrna (2899-mer),23s rrna
+23s rrna (2903-mer),23s rrna
+23s rrna fragment,23s rrna
+23s-5s joint ribosomal rna,23s-5s rrna
+25s ribosomal rna,25s rrna
+25s rna,25s rrna
+25s rrna,25s rrna
+25s rrna (3184-mer),25s rrna
+26s ribosomal rna,26s rrna
+26s rrna,26s rrna
+28s ribosomal rna,28s rrna
+"28s ribosomal rna, mitochondria",28s rrna
+"28s ribosomal rna, mitochondrial",28s rrna
+28s rrna,28s rrna
+28s rrna (3773-mer),28s rrna
+29-mer loop a and loop b ribozyme strand,29-mer loop a and loop b ribozyme strand
+30s ribosomal rna rrna,30s rrna
+35s pre-ribosomal rna miscrna,35s rrna
+35s ribosomal rna,35s rrna
+35s rrna,35s rrna
+4.5s ribosomal rna,4.5s rrna
+"4.8s ribosomal rna, chloroplastic",4.8s rrna
+4.8s rrna,4.8s rrna
+40s ribosomal rna,40s rrna
+4s rrna,4s rrna
+5-hydroxytryptophan rna aptamer,5-hydroxytryptophan rna aptamer
+5.8s ribosomal rna,5.8s rrna
+5.8s ribosomal rrna,5.8s rrna
+5.8s rna,5.8s rrna
+5.8s rrna,5.8s rrna
+5.8s rrna (156-mer),5.8s rrna
+5.8s rrna (158-mer),5.8s rrna
+5.8s rrna chain of the large ribosomal subunit,5.8s rrna
+5' ets,5' ets
+5'-monophosphate wt guanine riboswitch,guanine riboswitch
+5'-monophosphate z:p guanine riboswitch,guanine riboswitch
+5'-r(*ap*ap*gp*cp*cp*ap*cp*ap*cp*ap*ap*ap*cp*cp*ap*gp*ap*cp*gp *gp*cp*c)-3',5'-r(*ap*ap*gp*cp*cp*ap*cp*ap*cp*ap*ap*ap*cp*cp*ap*gp*ap*cp*gp *gp*cp*c)-3'
+5'-r(*ap*ap*gp*cp*cp*ap*cp*ap*cp*ap*ap*ap*cp*cp*ap*gp*ap*cp*gp*gp*cp*c)-3',5'-r(*ap*ap*gp*cp*cp*ap*cp*ap*cp*ap*ap*ap*cp*cp*ap*gp*ap*cp*gp*gp*cp*c)-3'
+5'-r(*ap*up*ap*ap*up*up*(fhu)p*gp*ap*cp*up*cp*ap*a)-3',5'-r(*ap*up*ap*ap*up*up*(fhu)p*gp*ap*cp*up*cp*ap*a)-3'
+5'-r(*cp*(5bu)p*up*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3',5'-r(*cp*(5bu)p*up*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3'
+5'-r(*cp*gp*gp*up*gp*ap*gp*ap*ap*gp*gp*g)-3',5'-r(*cp*gp*gp*up*gp*ap*gp*ap*ap*gp*gp*g)-3'
+5'-r(*cp*up*(5bu)p*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3',5'-r(*cp*up*(5bu)p*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3'
+5'-r(*cp*up*up*gp*cp*up*gp*ap*ap*gp*cp*gp*cp*gp*cp*ap*cp*gp*gp*cp*ap*ap*g)-3',5'-r(*cp*up*up*gp*cp*up*gp*ap*ap*gp*cp*gp*cp*gp*cp*ap*cp*gp*gp*cp*ap*ap*g)-3'
+5'-r(*cp*up*up*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3',5'-r(*cp*up*up*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3'
+5'-r(*cp*up*up*gp*cp*up*gp*ap*gp*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3',5'-r(*cp*up*up*gp*cp*up*gp*ap*gp*gp*up*gp*cp*ap*cp*ap*cp*ap*gp*cp*ap*ap*g)-3'
+5'-r(*gp*ap*gp*cp*ap*gp*cp*ap*up*cp*gp*up*cp*gp*gp*cp*up*gp*cp*up*cp*a)-3',5'-r(*gp*ap*gp*cp*ap*gp*cp*ap*up*cp*gp*up*cp*gp*gp*cp*up*gp*cp*up*cp*a)-3'
+5'-r(*gp*ap*gp*cp*gp*(5bu)p*gp*cp*gp*gp*up*up*u)-3',5'-r(*gp*ap*gp*cp*gp*(5bu)p*gp*cp*gp*gp*up*up*u)-3'
+5'-r(*gp*ap*gp*cp*gp*(bru)p*gp*cp*gp*gp*up*up*u)-3,5'-r(*gp*ap*gp*cp*gp*(bru)p*gp*cp*gp*gp*up*up*u)-3
+5'-r(*gp*ap*gp*cp*gp*(ur3)p*gp*cp*gp*gp*up*up*u)-3,5'-r(*gp*ap*gp*cp*gp*(ur3)p*gp*cp*gp*gp*up*up*u)-3
+5'-r(*gp*cp*cp*gp*ap*ap*ap*cp*up*cp*gp*up*ap*ap*gp*ap*gp*up*cp*ap*cp*cp*ap*c)-3',5'-r(*gp*cp*cp*gp*ap*ap*ap*cp*up*cp*gp*up*ap*ap*gp*ap*gp*up*cp*ap*cp*cp*ap*c)-3'
+5'-r(*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*gp*gp*c)-3',5'-r(*gp*cp*up*gp*ap*ap*gp*up*gp*cp*ap*cp*ap*cp*gp*gp*c)-3'
+5'-r(*gp*gp*ap*gp*cp*cp*up*gp*gp*gp*ap*gp*cp*up*cp*c)-3',5'-r(*gp*gp*ap*gp*cp*cp*up*gp*gp*gp*ap*gp*cp*up*cp*c)-3'
+5'-r(*gp*gp*cp*ap*gp*ap*gp*ap*ap*ap*cp*ap*cp*ap*cp*gp*a)-3',5'-r(*gp*gp*cp*ap*gp*ap*gp*ap*ap*ap*cp*ap*cp*ap*cp*gp*a)-3'
+5'-r(*gp*gp*cp*gp*up*(omc)p*cp*up*gp*gp*(5bu)p*ap*up*cp*cp*ap*ap*up*cp*(dc))-3',5'-r(*gp*gp*cp*gp*up*(omc)p*cp*up*gp*gp*(5bu)p*ap*up*cp*cp*ap*ap*up*cp*(dc))-3'
+5'-r(*gp*gp*up*gp*gp*up*cp*up*gp*ap*up*gp*ap*gp*gp*cp*c)-3',5'-r(*gp*gp*up*gp*gp*up*cp*up*gp*ap*up*gp*ap*gp*gp*cp*c)-3'
+5'-r(*up*cp*cp*cp*ap*gp*up*cp*cp*ap*cp*cp*g)-3',5'-r(*up*cp*cp*cp*ap*gp*up*cp*cp*ap*cp*cp*g)-3'
+5'-r(*up*cp*cp*cp*ap*gp*up*cp*cp*ap*cp*cp*gp*u)-3',5'-r(*up*cp*cp*cp*ap*gp*up*cp*cp*ap*cp*cp*gp*u)-3'
+5'-r(*up*cp*gp*cp*ap*gp*up*cp*cp*up*ap*up*u)-3',5'-r(*up*cp*gp*cp*ap*gp*up*cp*cp*up*ap*up*u)-3'
+5'-r(*up*cp*gp*up*gp*gp*up*ap*cp*ap*up*up*ap*cp*cp*up*gp*cp*c)-3',5'-r(*up*cp*gp*up*gp*gp*up*ap*cp*ap*up*up*ap*cp*cp*up*gp*cp*c)-3'
+5'-r(p*gp*gp*up*up*gp*cp*up*gp*ap*ap*gp*cp*gp*cp*gp*cp*ap*cp*gp*gp*cp*ap*ap*c)-3',5'-r(p*gp*gp*up*up*gp*cp*up*gp*ap*ap*gp*cp*gp*cp*gp*cp*ap*cp*gp*gp*cp*ap*ap*c)-3'
+5'ets rna,5'ets
+50s ribosomal rna,50s rrna
+50s subunit,50s rrna
+55-mer,55-mer
+58 nucleotide ribosomal 23s rna domain,58 nucleotide ribosomal 23s rna domain
+58 nucleotide ribosomal rna domain,58 nucleotide ribosomal rna domain
+5ets rna,5’ets
+5s large subunit ribosomal rna,5s rrna
+5s ribosomal rna,5s rrna
+"5s ribosomal rna, chloroplastic",5s rrna
+5s ribosomal rrna,5s rrna
+5s rna,5s rrna
+5s rna (118-mer),5s rrna
+5s rrna,5s rrna
+5s rrna (119-mer),5s rrna
+5s rrna (120-mer),5s rrna
+5s rrna (121-mer),5s rrna
+5s rrna chain of the large ribosomal subunit,5s rrna
+65-mer,65-mer
+67-mer,67-mer
+6s rna,6s rrna
+72-mer,72-mer
+74 nt fragment of 23s rrna,23s rrna
+75-mer trna,75-mer trna
+76-mer,76-mer
+76mer-trna,76mer-trna
+7s rna,7s rrna
+7s rna of human srp,7s rrna
+7s.s srp rna,7s rrna
+7sl rna,7sl rna
+9s rrna,9s rrna
+"a site tna, e site tna",a-site and e-site trnas
+a trna,a trna
+a-riboswitch,a-riboswitch
+a-site and e-site trnas,a-site and e-site trnas
+a-site lysine trna lysine,a-site lysine trna lysine
+a-site phe-trna phe,a-site phe-trna phe
+a-site trna,a-site trna
+a-site trna a9c trp-trna trp,a-site trna
+a-site trna g24a trp-trna trp,a-site trna
+a-site trna of 70s ribosome,a-site trna
+a-site trna thr,a-site trna
+a-site trna-val,a-site trna
+a-site trnaala(ggc),a-site trna
+a-site trnaala(ggc) u32-a38,a-site trna
+a-site trnaphe,a-site trnaphe
+a-trna,a-site trna
+a-trna (arg),a-site trna
+a-trnafmet,a-trnafmet
+a/a site trna,a-site trna
+a/e-site trnas,a-site and e-site trnas
+a/p hybrid trna,a/p trna
+a/p rna,a/p trna
+a/p trna,a/p trna
+a/p-site trna,a/p trna
+a/p-trna,a/p trna
+a/r-trna,a/p trna
+a/t trna(phe),a/t trna(phe)
+a/t-site phe-trnaphe,a/t-site phe-trnaphe
+a24u mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain,guanine riboswitch
+a24u/u25a/a46g mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain,guanine riboswitch
+a24u/u25a/a46g/c74u mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain,guanine riboswitch
+aa trna,aa trna
+adenine riboswitch aptamer variant,adenine riboswitch aptamer variant
+adenosine riboswitch,adenosine riboswitch
+adenosylcobalamin riboswitch,adenosylcobalamin riboswitch
+adenovirus virus-associated (va) rna i apical and central domains,adenovirus virus-associated
+ala-trna (a/p-site),ala-trna
+alpha chain of the large ribosomal subunit 28s rrna,28s rrna
+ap rna,ap rna
+apo l-21 scai tetrahymena ribozyme,apo l-21 scai tetrahymena ribozyme
+aptamer,aptamer
+aspartyl transfer rna,aspartyl trna
+aspartyl trna,aspartyl trna
+aspartyl-trna,aspartyl trna
+atrna (arg),atrna
+atrna synthetic stop trna (76-mer),atrna synthetic stop trna
+b. subtilis cobalamin riboswitch,b. subtilis cobalamin riboswitch
+"bacillus subtilis small cytoplasmic rna (scrna),rna",bacillus subtilis small cytoplasmic
+bacillus subtilis xpt,bacillus subtilis xpt
+bacterial trna,bacterial trna
+bacteriophage phi29 prohead rna,bacteriophage phi29 prohead rna
+beta chain of the large ribosomal subunit 28s rrna,28s rrna
+c-di-amp riboswitch,c-di-amp riboswitch
+c-di-amp ribsoswitch,c-di-amp riboswitch
+c-di-gmp riboswitch,c-di-gmp riboswitch
+c-di-gmp-ii riboswitch,c-di-gmp riboswitch
+c92u mutant c-di-gmp riboswitch,c92u mutant c-di-gmp riboswitch
+chains: a,chains: a
+chains: b,chains: b
+"chains: c,d","chains: c,d"
+chains: pt,chains: pt
+class i ligase product,class i ligase product
+class i ligase ribozyme,class i ligase ribozyme
+cobalamin riboswitch aptamer domain,cobalamin riboswitch aptamer domain
+cp trna-phe,cp trna-phe
+cp trnaphe,cp trnaphe
+crpv 5'-utr ires,crpv 5'-utr ires
+cysteinyl trna,cysteinyl trna
+cysteinyl-trna synthetase,cysteinyl trna
+deacylated a/r-trna,deacylated a/r-trna
+deacylated trnai(met),deacylated trnai(met)
+"didymium iridis partial igs, 18s rrna gene, i-diri gene and partial its1",18s rrna
+distal stem i region of the glyqs t box leader rna,glyqs t box leader rna
+domain ii of glycine riboswitch,glycine riboswitch
+e site trna (75-mer),e-site trna (75-mer)
+e trna,e-side trna
+e-site and p-site trna (fmet),e-site or p-site trna fmet
+e-site or p-site trna fmet,e-site or p-site trna fmet
+e-site trna,e-site trna
+e-site trna (fmet),e-site trna (fmet)
+e-site trna (phe),e-site trna (phe)
+e-site trna fmet or p-site trna fmet (unmodified bases except for thymine 54),e-site or p-site trna fmet
+e-site trna of 70s ribosome,e-site trna of 70s ribosome
+e-site trna phe,e-site trna phe
+e-site trna phe or a-site trna phe,e-site trna phe or a-site trna phe
+e-site trna phe or a-site trna phe (unmodified bases),e-site trna phe or a-site trna phe
+e-site trna phe or p-site trna phe,e-site trna phe or p-site trna phe
+e-site trna phe or p-site trna phe (unmodified bases),e-site trna phe or p-site trna phe
+e-site trna valine,e-site trna valine
+e-site trna-phe or a-site trna-phe,e-site trna phe or a-site trna phe
+e-site trna-pro,e-site trna-pro
+e-site trna(phe),e-site trna(phe)
+e-site trnaala(ggc),e-site trnaala(ggc)
+e-site trnafmet,e-site trnafmet
+e-site val trna (76-mer),e-site val trna (76-mer)
+e-trna,e-site trna
+e-trnafmet,e-trnafmet
+e. coli trnafmet,e. coli trnafmet
+e. coli trnaleu uaa isoacceptor,e. coli trnaleu uaa isoacceptor
+e. coli yybp-ykoy riboswitch,e. coli yybp-ykoy riboswitch
+engineered trna,engineered trna
+engineered trnagly,engineered trnagly
+env22 twister ribozyme,env22 twister ribozyme
+eukaryotic ribosomal l1_rrna,eukaryotic ribosomal l1_rrna
+eukaryotic ribosomal p_e trna,eukaryotic ribosomal p_e trna
+first rna fragment of cleaved substrate,first rna fragment of cleaved substrate
+fmet-nh-trna(fmet),fmet-trna
+fmet-trna,fmet-trna
+fmet-trna (p- and e-site),fmet-trna
+fmet-trnafmet,fmet-trna
+fmet-trnamet (p site),fmet-trna
+fmet-val-trna-val,fmet-val-trna-val
+fmetsec-trnasec,fmetsec-trnasec
+fmn riboswitch,fmn riboswitch
+formyl-methionine specific initiator transfer rna,formyl-methionine specific initiator transfer rna
+fragment of 23s rrna,23s rrna
+fusibacterium ulcerans ztp riboswitch,fusibacterium ulcerans ztp riboswitch
+g20a mutant c-di-gmp riboswitch,g20a mutant c-di-gmp riboswitch
+g20a/c92u mutant c-di-gmp riboswitch,g20a/c92u mutant c-di-gmp riboswitch
+ggpan rna (39-mer),ggpan rna (39-mer)
+glms glucosamine-6-phosphate activated ribozyme,glms glucosamine-6-phosphate activated ribozyme
+glms ribozyme,glms ribozyme
+glms ribozyme rna,glms ribozyme
+gln-trna,gln-trna
+glutamine trna aptamer,glutamine trna aptamer
+glutaminyl trna,glutaminyl trna
+glycine riboswitch,glycine riboswitch
+glycine-trna,glycine-trna
+glyq t-box stem i,glyq t-box stem i
+glyqs t box riboswitch,glyqs t box riboswitch
+group i intron p9,group i intron p9
+group i ribozyme,group i ribozyme
+group i self-splicing intron,group i self-splicing intron
+group i self-splicing intron p4-p6 domain,group i self-splicing intron p4-p6 domain
+group ii intron,group ii intron
+group ii intron lariat,group ii intron lariat
+"group ii intron, domain 1","group ii intron, domain 1"
+group iib intron lariat,group iib intron lariat
+group iic intron,group iic intron
+group iic intron ribozyme,group iic intron ribozyme
+gtp class ii rna (34-mer),gtp class ii rna
+guanine riboswitch,guanine riboswitch
+guanine riboswitch aptamer domain,guanine riboswitch
+guanine riboswitch c74u mutant,guanine riboswitch
+guide rna 2,guide rna 2
+h/aca rna,h/aca rna
+h1 rna,h1 rna
+hammerhead ribozyme,hammerhead ribozyme
+"hammerhead ribozyme, cleaved fragment",hammerhead ribozyme
+"hammerhead ribozyme, enzyme strand",hammerhead ribozyme
+"hammerhead ribozyme, substrate strand",hammerhead ribozyme
+hav dv rna (92-mer),hav dv
+hcv ires,hcv ires
+hcv ires pseudoknot domain plus crystallization module,hcv ires
+hcv-ires,hcv ires
+hcv-ires rna,hcv ires
+hiv-1 dis rna,hiv-1 dis rna
+hiv-1 dis(mal)uu rna,hiv-1 dis rna
+hiv-1 reverse transcription primer trna(lys3),hiv-1 reverse transcription primer trna(lys3)
+"homo sapiens rna, u6 small nuclear 1 (rnu6-1), small nuclear rna",homo sapiens u5 a small nuclear rna
+homo sapiens u5 a small nuclear rna,homo sapiens u5 a small nuclear rna
+human 18s ribosomal rna,18s rrna
+human gene for small cytoplasmic 7sl rna (7l30.1),human gene for small cytoplasmic 7sl
+human gene for small nuclear rna u2 (snrna u2),human gene for small nuclear
+human initiator met-trna-i,human initiator met-trna-i
+iapv-ires,iapv-ires
+icg trna arg (p/p),icg trna arg
+initiator met-rna-i,initiator met-rna-i
+initiator met-trna-i,initiator met-trna-i
+initiator methionine trna,initiator methionine trna
+initiator methionylated trna,initiator methionylated trna
+initiator trna,initiator trna
+initiator trna-met,initiator trna-met
+internal ribosomal entry site,internal ribosomal entry site
+intron lariat,intron lariat
+intron of ubc4 pre-mrna,intron of ubc4 pre-mrna
+ires,ires
+ires mrna,ires mrna
+isoleucyl-trna,isoleucyl-trna
+jiiiabc,jiiiabc
+jiiiabc rna (68-mer),jiiiabc
+l-glutamine riboswitch rna (61-mer),l-glutamine riboswitch
+l-leucyl-trna,l-leucyl-trna
+l-leucyl-trna(leu),l-leucyl-trna
+l1 ribozyme rna ligase,l1 ribozyme rna ligase
+lactococcus lactis yybp-ykoy riboswitch,lactococcus lactis yybp-ykoy riboswitch
+large ribosomal rna,large ribosomal rna
+lariat-capping ribozyme,lariat-capping ribozyme
+leucyl trna,leucyl trna
+loop a and loop b ribozyme strand,loop a and loop b ribozyme strand
+loop a ribozyme strand,loop a ribozyme strand
+loop a substrate strand,loop a substrate strand
+loop b s-turn strand,loop b s-turn strand
+lsu r-rna group i intron,lsu r-rna group i intron
+lsu rrna,lsu rrna
+lsu rrna chain 1,lsu rrna
+lsu rrna chain 2,lsu rrna
+lsu rrna chain 4,lsu rrna
+lsu rrna chain 5,lsu rrna
+lsu rrna chain 6,lsu rrna
+lsu rrna chain 7,lsu rrna
+lsu rrna chain 8,lsu rrna
+lsu rrna chain 9,lsu rrna
+lsu-alpha,lsu-alpha
+lsu-beta,lsu-beta
+lysine riboswitch  rna,lysine riboswitch
+lysine riboswitch rna,lysine riboswitch
+m-box riboswitch rna,m-box riboswitch rna
+"m-box rna, ykok riboswitch aptamer",m-box riboswitch rna
+met-trna-imet,met-trna-imet
+mir-122,mir-122
+mitochondrial trnaval,mitochondrial trnaval
+mitochondrial val trna,mitochondrial val trna
+mitoribosomal 12s ribosomal rna,12s rrna
+mitoribosomal 16s ribosomal rna,16s rrna
+modified formyl-methionine specific initiator transfer rna,modified formyl-methionine specific initiator transfer rna
+mrna,mrna
+mt-lsu rrna,mt-lsu rrna
+mt-trna,mt-trna
+mt-trnaval,mt-trnaval
+mutant group iic intron,mutant group iic intron
+mutated adenine riboswitch aptamer,mutated adenine riboswitch aptamer
+nico riboswitch rna,nico riboswitch rna
+nmt1 (46-mer),nmt1
+nmt1_8-azaxanthine (46-mer),nmt1
+nmt1_ir(46-mer),nmt1
+nmt1_mn (46-mer),nmt1
+nucleic acid,nucleic acid
+ole* rna,ole* rna
+p and e-site trna(fmet),e-site and p-site trna (fmet)
+p site trna,p-site trna
+p site trnafmet,p site trnafmet
+p-site and e-site trnas,p-site and e-site trnas
+p-site arg-trna,p-site arg-trna
+p-site aslpro,p-site aslpro
+p-site fmet-phe-trna(phe),p-site fmet-phe-trna(phe)
+p-site fmet-trna,p-site fmet-trna
+p-site fmet-trna(fmet),p-site fmet-trna(fmet)
+p-site fmet-trnafmet,p-site fmet-trnafmet
+p-site ile-trna,p-site ile-trna
+p-site isoleucine trna (77-mer),p-site isoleucine trna (77-mer)
+p-site leu-trna(leu),p-site leu-trna(leu)
+p-site or e-site fmet-trna(fmet),p-site or e-site fmet-trna(fmet)
+p-site phe-trna,p-site phe-trna
+p-site trna,p-site trna
+p-site trna aspartate,p-site trna aspartate
+p-site trna f-met,p-site trna f-met
+p-site trna fmet,p-site trna fmet
+p-site trna fmet (unmodified bases except for thymine 54),p-site trna fmet
+p-site trna of 70s ribosome,p-site trna
+p-site trna sufa6,p-site trna sufa6
+p-site trna-fmet,p-site trna-fmet
+p-site trna-gly,p-site trna-gly
+p-site trna-pro,p-site trna-pro
+"p-site trna, deacylated initiator methionyl-trna","p-site trna, deacylated initiator methionyl-trna"
+p-site trna(fmet),p-site trna(fmet)
+p-site trnafmet,p-site trnafmet
+p-site trnaphe,p-site trnaphe
+p-trna,p-side trna
+p-trna (leu),p-trna (leu)
+p-trnafmet,p-trnafmet
+p/e hybrid trna,e-site and p-site trnas
+p/e site trna,e-site and p-site trnas
+p/e trna,e-site and p-site trnas
+p/e-site initiator transfer rnafmet,e-site and p-site trnas
+p/e-site trnaphe,e-site and p-site trnas
+p/e-trna,e-site and p-site trnas
+p4-p6 delc209 mutant rna ribozyme domain,p4-p6 delc209 mutant
+p4-p6 rna ribozyme domain,p4-p6 delc209 mutant
+pe hybrid state trna phe,e-site and p-site trnas
+pe rna,pe trna
+pe trna,pe trna
+pfi riboswitch,pfi riboswitch
+phe-trna-phe,phe-trna-phe
+phenylalanine specific transfer rna,phenylalanine specific transfer rna
+"phenylalanine specific transfer rna, trna-phe",phenylalanine specific transfer rna
+phenylalanine transfer rna,phenylalanine transfer rna
+phi29 prna 3wj core rna 20 mer,phi29 prna 3wj core rna 20 mer
+pistol (50-mer),pistol
+ppgpp riboswitch,ppgpp riboswitch
+pre-18s ribosomal rna,pre 18s rrna
+pre-23s rrna,pre 23s rrna
+pre-5s rrna,pre 5s rrna
+pre-trna,pre trna
+preq1-iii riboswitch (class 3),preq1-iii riboswitch
+proline trna,proline trna
+prpp riboswitch,prpp riboswitch
+pseudomonas aeruginosa strain pao1 23s ribosomal rna,23s rrna
+ptrna (leu),ptrna-leu
+ptrna-leu,ptrna-leu
+r06,r06
+rdn25-1 rrna,rdn25-1 rrna
+rdn5-2 rrna,rdn5-2 rrna
+rdn5.8-1 rrna,rdn58-1 rrna
+rdn58-1 rrna,rdn58-1 rrna
+ribonuclease mrp rna subunit nme1,ribonuclease mrp
+ribonuclease p,ribonuclease p
+ribonuclease p rna,ribonuclease p
+ribosomal 23s rna,23s rrna
+ribosomal 5s rna,5s rrna
+ribosomal rna,rrna
+ribosomal rna 16s,16s rrna
+ribosomal rna 23s,23s rrna
+ribosomal rna 5s,5s rrna
+riboswitch,riboswitch
+rna,rna
+rna  substrate,rna substrate
+rna (101-mer),rna (101-mer)
+rna (103-mer),rna (103-mer)
+rna (108-mer),rna (108-mer)
+rna (111-mer),rna (111-mer)
+rna (112-mer),rna (112-mer)
+rna (119-mer),rna (119-mer)
+rna (121-mer),rna (121-mer)
+rna (123-mer),rna (123-mer)
+rna (124-mer),rna (124-mer)
+rna (125-mer),rna (125-mer)
+rna (126-mer),rna (126-mer)
+rna (127-mer),rna (127-mer)
+rna (128-mer),rna (128-mer)
+rna (130-mer),rna (130-mer)
+rna (1504-mer),rna (1504-mer)
+rna (1519-mer),rna (1519-mer)
+rna (161-mer),rna (161-mer)
+rna (171-mer),rna (171-mer)
+rna (174-mer),rna (174-mer)
+rna (189-mer),rna (189-mer)
+rna (192-mer),rna (192-mer)
+rna (231-mer),rna (231-mer)
+rna (238-mer),rna (238-mer)
+rna (2699-mer),rna (2699-mer)
+rna (2732-mer),rna (2732-mer)
+rna (2848-mer),rna (2848-mer)
+rna (2862-mer),rna (2862-mer)
+rna (2909-mer),rna (2909-mer)
+rna (2912-mer),rna (2912-mer)
+rna (338-mer),rna (338-mer)
+rna (349-mer),rna (349-mer)
+rna (36-mer),rna (36-mer)
+rna (388-mer),rna (388-mer)
+rna (39-mer),rna (39-mer)
+rna (47-mer),rna (47-mer)
+rna (48-mer),rna (48-mer)
+rna (49-mer),rna (49-mer)
+rna (5'-r(*cp*gp*gp*up*gp*ap*gp*ap*ap*gp*gp*g)-3'),rna (5'-r(*cp*gp*gp*up*gp*ap*gp*ap*ap*gp*gp*g)-3')
+rna (5'-r(*gp*(cbv)p*gp*gp*gp*gp*ap*cp*gp*ap*cp*cp*cp*cp*gp*c)-3'),rna (5'-r(*gp*(cbv)p*gp*gp*gp*gp*ap*cp*gp*ap*cp*cp*cp*cp*gp*c)-3')
+rna (5'-r(*gp*cp*ap*gp*cp*ap*gp*c)-3'),rna (5'-r(*gp*cp*ap*gp*cp*ap*gp*c)-3')
+rna (5'-r(*gp*cp*gp*gp*gp*gp*ap*cp*gp*ap*cp*cp*cp*up*gp*c)-3'),rna (5'-r(*gp*cp*gp*gp*gp*gp*ap*cp*gp*ap*cp*cp*cp*up*gp*c)-3')
+rna (5'-r(*gp*gp*cp*cp*gp*ap*ap*ap*cp*up*cp*gp*up*ap*ap*gp*a p*gp*up*cp*ap*cp*cp*ap*c)-3'),rna (5'-r(*gp*gp*cp*cp*gp*ap*ap*ap*cp*up*cp*gp*up*ap*ap*gp*a p*gp*up*cp*ap*cp*cp*ap*c)-3')
+rna (5'-r(*gp*gp*up*gp*gp*gp*ap*gp*ap*cp*gp*up*cp*cp*cp*ap*cp*c)-3'),rna (5'-r(*gp*gp*up*gp*gp*gp*ap*gp*ap*cp*gp*up*cp*cp*cp*ap*cp*c)-3')
+rna (5'-r(*gp*up*cp*up*ap*up*gp*ap*ap*gp*gp*cp*up*gp*gp*ap*gp*ap*c)-3'),rna (5'-r(*gp*up*cp*up*ap*up*gp*ap*ap*gp*gp*cp*up*gp*gp*ap*gp*ap*c)-3')
+rna (5'-r(*up*cp*gp*up*gp*gp*up*cp*cp*ap*up*up*ap*cp*cp*up*gp*cp*c)-3'),rna (5'-r(*up*cp*gp*up*gp*gp*up*cp*cp*ap*up*up*ap*cp*cp*up*gp*cp*c)-3')
+rna (5'-r(*up*cp*up*gp*cp*up*cp*up*cp*(gva)*up*cp*cp*ap*a)-3'),rna (5'-r(*up*cp*up*gp*cp*up*cp*up*cp*(gva)*up*cp*cp*ap*a)-3')
+rna (5'-r(*up*cp*up*gp*cp*up*cp*up*cp*gp*up*cp*cp*ap*a)-3'),rna (5'-r(*up*cp*up*gp*cp*up*cp*up*cp*gp*up*cp*cp*ap*a)-3')
+rna (5'-r(*up*up*up*gp*cp*ap*gp*gp*ap*cp*gp*ap*cp*cp*up*gp*(cbv)p*ap*ap*a)-3'),rna (5'-r(*up*up*up*gp*cp*ap*gp*gp*ap*cp*gp*ap*cp*cp*up*gp*(cbv)p*ap*ap*a)-3')
+rna (5'-r(p*gp*cp*up*gp*gp*up*cp*cp*cp*ap*gp*ap*cp*ap*gp*c)-3'),rna (5'-r(p*gp*cp*up*gp*gp*up*cp*cp*cp*ap*gp*ap*cp*ap*gp*c)-3')
+rna (50-mer),rna (50-mer)
+rna (51-mer),rna (51-mer)
+rna (52-mer),rna (52-mer)
+rna (54-mer),rna (54-mer)
+rna (55-mer),rna (55-mer)
+rna (56-mer),rna (56-mer)
+rna (57-mer),rna (57-mer)
+rna (58-mer),rna (58-mer)
+rna (59-mer),rna (59-mer)
+rna (60-mer),rna (60-mer)
+rna (61-mer),rna (61-mer)
+rna (62-mer),rna (62-mer)
+rna (621-mer),rna (621-mer)
+rna (66-mer),rna (66-mer)
+rna (68-mer),rna (68-mer)
+rna (69-mer),rna (69-mer)
+rna (696-mer),rna (696-mer)
+rna (70-mer),rna (70-mer)
+rna (71-mer),rna (71-mer)
+rna (73-mer),rna (73-mer)
+rna (74-mer),rna (74-mer)
+rna (75-mer),rna (75-mer)
+rna (76-mer),rna (76-mer)
+rna (77-mer),rna (77-mer)
+rna (78-mer),rna (78-mer)
+rna (80-mer),rna (80-mer)
+rna (82-mer),rna (82-mer)
+rna (84-mer),rna (84-mer)
+rna (87-mer),rna (87-mer)
+rna (90-mer),rna (90-mer)
+rna (91-mer),rna (91-mer)
+rna (92-mer),rna (92-mer)
+rna (94-mer),rna (94-mer)
+rna (97-mer),rna (97-mer)
+rna (99-mer),rna (99-mer)
+rna 3d nanocage,3d nanocage
+rna 76-mer,76-mer
+rna hairpin ribozyme,hairpin ribozyme
+rna hammerhead ribozyme,hammerhead ribozyme
+rna inhibitor substrate,inhibitor substrate
+rna nano bracelet,nano bracelet
+rna promoter stem-loop a fused with trna,promoter
+rna riboswitch,riboswitch
+rna subunit of rnase p,rna subunit of rnase p
+rna_(155-mer),rna (155-mer)
+rnase p rna,rnase p rna
+rpr,rpr
+rrna 5.8s,5.8s rrna
+rrna 5s,5s rrna
+rrna alpha,rrna alpha
+rrna beta,rrna beta
+rrna delta,rrna delta
+rrna epsilon,rrna epsilon
+rrna fragment,rrna fragment
+rrna gamma,rrna gamma
+rrna substrate of u65 box h/aca snorna,rrna substrate of u65 box h/aca snorna
+rrna zeta,rrna zeta
+rrna-23s ribosomal rna,23s rrna
+rrna-5s ribosomal rna,5s rrna
+s-adenosylhomocysteine riboswitch,s-adenosylhomocysteine riboswitch
+s.cerevisiae chromosome ii reading frame orf ybr230c,s.cerevisiae chromosome ii reading frame orf ybr230c
+"saccharomyces cerevisiae s288c 18s ribosomal rna (rdn18-1), rrna",18s rrna
+"saccharomyces cerevisiae s288c 25s ribosomal rna (rdn25-1), rrna",25s rrna
+"saccharomyces cerevisiae s288c 35s pre-ribosomal rna (rdn37-1), miscrna",35s rrna
+saccharomyces cerevisiae s288c 35s pre-ribosomal rna miscrna,35s rrna
+saccharomyces cerevisiae s288c rdn37-1 miscrna,saccharomyces cerevisiae s288c rdn37-1 miscrna
+saccharomyces cerevisiae s288c snr6 snrna,saccharomyces cerevisiae s288c snr6 snrna
+saccharomyces cerevisiae strain cdrdr_sf_h chromosome vii sequence,saccharomyces cerevisiae strain cdrdr_sf_h chromosome vii sequence
+saccharomyces cerevisiae strain t.52_2h chromosome xii sequence,saccharomyces cerevisiae strain t.52_2h chromosome xii sequence
+saccharomyces cerevisiae strain wi_c_mbsp_4 chromosome vii sequence,saccharomyces cerevisiae strain wi_c_mbsp_4 chromosome vii sequence
+sam-i riboswitch,sam-i riboswitch
+sam-i riboswitch aptamer with an engineered helix p3,sam-i riboswitch
+sam-i/iv riboswitch,sam-i/iv riboswitch
+sam-i/iv variant riboswitch aptamer domain,sam-i/iv riboswitch
+sam-iii riboswitch,sam-iii riboswitch
+sec-trnasec,sec-trnasec
+selenocysteine trna,selenocysteine trna
+short rrna-i of the large ribosomal subunit,short rrna-i of the large ribosomal subunit
+short rrna-iii of the large ribosomal subunit,short rrna-iii of the large ribosomal subunit
+short rrna-iv of the large ribosomal subunit,short rrna-iv of the large ribosomal subunit
+signal recognition particle rna s domain,signal recognition particle rna s domain
+sl1 rna dimer,sl1 rna dimer
+smk box (sam-iii) riboswitch,smk box riboswitch
+smk box (sam-iii) riboswitch for rna,smk box riboswitch for rna
+srp alu domain,srp alu domain
+srp rna,srp rna
+srp rna (124-mer),srp rna
+srp s domain,srp s domain
+srrna2,srrna2
+srrna3,srrna3
+srrna4,srrna4
+"srs2 fragment of rgs4 3' utr, rna (31-mer)",srs2 fragment of rgs4 3' utr
+ssr26,ssr26
+ssu rrna,ssu rrna
+"stapled 16s-23s rrna,stapled 16s-23s rrna,stapled 16s-23s rrna,stapled 16s-23s rrna","16s-23s rrna,stapled"
+stem loop fragment of e. coli 23s rna,stem loop fragment of e. coli 23s rna
+t-box stem i,t-box stem i
+t-box stem i rna,t-box stem i rna
+t-rna (75-mer),t-rna (75-mer)
+t-rna (76-mer),t-rna (76-mer)
+t-rna-asp,t-rna-asp
+t23s rrna,t23s rrna
+tar rna element of hiv-1,tar rna element of hiv-1
+telomerase tr,telomerase tr
+tetracycline aptamer and artificial riboswitch,tetracycline aptamer and artificial riboswitch
+tetrahydrofolate riboswitch,tetrahydrofolate riboswitch
+tetrahydrofolate riboswitch aptamer,tetrahydrofolate riboswitch aptamer
+tetrahydrofolate riboswitch aptamer domain,tetrahydrofolate riboswitch aptamer domain
+tetrahymena ribozyme rna,tetrahymena ribozyme rna
+tetramethylrhodamine aptamer,tetramethylrhodamine aptamer
+the a-site trna was modeled based on an e. coli trna-lys,the a-site trna was modeled based on an e. coli trna-lys
+the prohead rna (71-mer) in bacteriophage phi29,the prohead rna (71-mer) in bacteriophage phi29
+thermus thermophilus trnaphe,thermus thermophilus trnaphe
+thf riboswitch,thf riboswitch
+thi-box riboswitch,thi-box riboswitch
+thim tpp riboswitch,thim tpp riboswitch
+threonine trna,threonine trna
+tmr3 (48-mer),tmr3 (48-mer)
+tmrna,tmrna
+tmrna (63-mer),tmrna
+tmrna dela,tmrna
+"tpa_inf: saccharomyces cerevisiae s288c chromosome xii, complete sequence","tpa_inf: saccharomyces cerevisiae s288c chromosome xii, complete sequence"
+tpp riboswitch,tpp riboswitch
+tpp-specific riboswitch,tpp-specific riboswitch
+transfer rna,t-rna
+transfer rna - phe,transfer rna - phe
+transfer rna (75-mer),transfer rna (75-mer)
+transfer rna (phe),transfer rna (phe)
+transfer rna-trp,transfer rna-trp
+transfer-messenger rna (tmrna),transfer-messenger rna (tmrna)
+trna,trna
+trna (5'-d(*ap*up*cp*cp*cp*cp*gp*up*gp*up*cp*cp*up*up*gp*gp*up*up*cp*g)-3'),trna (5'-d(*ap*up*cp*cp*cp*cp*gp*up*gp*up*cp*cp*up*up*gp*gp*up*up*cp*g)-3')
+trna (75-mer),trna (75-mer)
+trna (76-mer),trna (76-mer)
+trna (77-mer),trna (77-mer)
+trna (e/e),trna (e/e)
+trna (phe),trna (phe)
+trna fmet,trna fmet
+trna fmet (unmodified bases),trna fmet (unmodified bases)
+trna glu,trna glu
+trna glycine,trna glycine
+trna lys3,trna lys3
+trna met,trna met
+trna mixture,trna mixture
+trna phe (unmodified bases),trna phe (unmodified bases)
+trna val,trna val
+trna-ala,trna-ala
+trna-ala-1-1,trna-ala-1-1
+trna-arg,trna-arg
+trna-fmet,trna-fmet
+trna-fmeti,trna-fmeti
+trna-gln,trna-gln
+trna-gly,trna-gly
+trna-gly-ccc-2-2,trna-gly-ccc-2-2
+trna-glycine,trna-glycine
+trna-leu,trna-leu
+trna-leu taa isoacceptor,trna-leu taa isoacceptor
+trna-leu5 (uaa isoaceptor),trna-leu5 (uaa isoaceptor)
+trna-lys,trna-lys
+trna-met,trna-met
+trna-phe,trna-phe
+trna-phe with unmodified nucleotides except for mia37,trna-phe with unmodified nucleotides except for mia37
+trna-tyr,trna-tyr
+trna-val,trna-val
+"trna, a-site and e-site trnas","trna, a-site and e-site trnas"
+trna(arg),trna(arg)
+trna(fmet),trna(fmet)
+trna(glu),trna(glu)
+trna(leu),trna(leu)
+trna(phe),trna(phe)
+trna(phe) in lsu,trna(phe) in lsu
+trna(pro),trna(pro)
+trna(sec),trna(sec)
+trna(thr),trna(thr)
+trna(tyr),trna(tyr)
+trna(val),trna(val)
+trna3lys,trna3lys
+trnaarg,trnaarg
+trnaasp,trnaasp
+trnacys,trnacys
+trnafmet,trnafmet
+trnagln,trnagln
+trnagln2,trnagln2
+trnai,trnai
+trnaimet,trnaimet
+trnaleu,trnaleu
+trnaleu transcript with anticodon cag,trnaleu transcript with anticodon cag
+trnaleu5 uaa isoacceptor,trnaleu5 uaa isoacceptor
+trnalys,trnalys
+trnamet,trnamet
+trnaphe,trnaphe
+trnapro,trnapro
+trnapro(cgg),trnapro(cgg)
+trnasec,trnasec
+trnaser,trnaser
+trnathr,trnathr
+trnatrp,trnatrp
+trnaval,trnaval
+turnip yellow mosaic virus mrna for the coat protein,turnip yellow mosaic virus mrna for the coat protein
+twister ribozyme,twister ribozyme
+twister rna sequence,twister rna sequence
+u1 snrna,u1 snrna
+"u1 snrna,u1 snrna,u1 snrna,u1 snrna,u1 snrna","u1 snrna,u1 snrna,u1 snrna,u1 snrna,u1 snrna"
+u2 snrna,u2 snrna
+u2 snrna (small nuclear rna),u2 snrna (small nuclear rna)
+u25a/a46g mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain,u25a/a46g mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain
+u25a/a46g/c74u mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain,u25a/a46g/c74u mutant of the b. subtilis xpt-pbux guanine riboswitch aptamer domain
+u2snrna,u2snrna
+u3 rna,u3 rna
+u3 snorna,u3 snorna
+u4 snrna,u4 snrna
+"u4 snrna, 5' region, nucleotides 1-67",u4 snrna
+u4snrna,u4snrna
+u5 snrna,u5 snrna
+u5 snrna (small nuclear rna),u5 snrna
+u6 snrna,u6 snrna
+u6 snrna (small nuclear rna),u6 snrna
+u6snrna,u6snrna
+unmodified trnaphe,unmodified trnaphe
+upsi rna,upsi rna
+vibrio vulnificus a-riboswitch,vibrio vulnificus a-riboswitch
+vibrio vulnificus adenine riboswitch,vibrio vulnificus a-riboswitch
+"vibrio vulnificus strain 93u204 chromosome ii, adenine riboswitch aptamer domain",vibrio vulnificus a-riboswitch
+vs ribozyme rna,vs ribozyme rna
+x. oryzae mn riboswitch optimized construct,x. oryzae mn riboswitch optimized construct
+xpt-pbux guanine riboswitch aptamer domain,xpt-pbux guanine riboswitch aptamer domain
+xrn1-resistant flaviviral rna,xrn1-resistant flaviviral rna
+yeast initiator trna,yeast initiator trna
+yeast phe-trna-phe,yeast phe-trna-phe
+yeast phenylalanine trna,yeast phenylalanine trna
+yitj s box/sam-i riboswitch,yitj s box/sam-i riboswitch
+yrla effector-binding module,yrla effector-binding module
+yybp-ykoy riboswitch,yybp-ykoy riboswitch
+z-site trna,z-site trna
