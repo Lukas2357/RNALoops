@@ -53,6 +53,14 @@ def generic_clustering(df: pd.DataFrame, features: list, n_cluster=3, dim=2,
         if data.ndim == 1:
             data = data.reshape(-1, 1)
 
+        if n_cluster > len(data):
+            print('More clusters than samples, reduce cluster number...')
+            n_cluster = len(data)
+
+        if len(data) < 3:
+            print('To few samples, skip...')
+            continue
+
         model = generate_model(alg, n_cluster, data)
         model.fit(data)
 

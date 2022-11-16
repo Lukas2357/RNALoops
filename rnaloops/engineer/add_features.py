@@ -136,24 +136,23 @@ def save_agg_df(level='L2', cat='parts_seq', way=None):
     df = get_seq_agg_df(level=level, cat=cat, way=way)
     df = add_features(df, cat=cat)
 
-    if way is None:
-        filename = f'rnaloops_data_agg_by_{cat}.pkl'
-    else:
-        filename = f'rnaloops_data_agg_by_{cat}_way{way}.pkl'
+    filename = f'rnaloops_data_agg_by_{cat}_{level}'
+    if way is not None:
+        filename += f'_way{way}'
 
-    joblib.dump(df, mypath('DATA_PREP', filename))
+    save_data(df, filename, subfolder='aggregated')
 
     return df
 
 
-def load_agg_df(way=None, cat='parts_seq'):
+def load_agg_df(level='L2', way=None, cat='parts_seq'):
 
-    if way is None:
-        filename = f'rnaloops_data_agg_by_{cat}.pkl'
-    else:
-        filename = f'rnaloops_data_agg_by_{cat}_way{way}.pkl'
+    filename = f'rnaloops_data_agg_by_{cat}_{level}'
+    if way is not None:
+        filename += f'_way{way}'
 
-    df = joblib.load(mypath('DATA_PREP', filename))
+    df = pd.read_csv(mypath('DATA_PREP', subfolder='aggregated',
+                            file=filename + '.csv'), index_col='parts_seq')
 
     for col in df.columns:
         if 'euler' in col:

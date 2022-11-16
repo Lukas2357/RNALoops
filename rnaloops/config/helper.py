@@ -58,7 +58,7 @@ def mypath(folder, file=None, create_if_missing=False, subfolder=None):
 
 
 def save_data(df: pd.DataFrame, filename: str, formats=('csv', ),
-              folder='DATA_PREP'):
+              folder='DATA_PREP', subfolder=None):
     """Save the data in csv and/or xlsx format
 
     Parameters
@@ -71,19 +71,27 @@ def save_data(df: pd.DataFrame, filename: str, formats=('csv', ),
         The formats to save the raw_data in
     folder : string
         The folder to save data in
+    subfolder : str
+        Subfolder in that folder to save data in
 
     """
+
+    if subfolder is None:
+        data_file = mypath(folder, filename)
+    else:
+        data_file = mypath(folder, filename, subfolder=subfolder)
+
     if 'csv' in formats:
-        data_file = mypath(folder, filename + '.csv')
-        df.to_csv(data_file)
+        filename = data_file + '.csv'
+        df.to_csv(filename)
 
     if 'xlsx' in formats:
-        data_file = mypath(folder, filename + '.xlsx')
-        df.to_excel(data_file)
+        filename = data_file + '.xlsx'
+        df.to_excel(filename)
 
     if 'pkl' in formats:
-        data_file = mypath(folder, filename + '.pkl')
-        df.to_pickle(data_file)
+        filename = data_file + '.pkl'
+        df.to_pickle(filename)
 
 
 def save_figure(name=None, fig=None, tight=True, dpi='figure',
