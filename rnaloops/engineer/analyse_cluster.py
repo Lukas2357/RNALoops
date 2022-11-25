@@ -9,7 +9,7 @@ import seaborn as sns
 
 from rnaloops.cluster.clustering import do_cluster
 from rnaloops.config.helper import mypath, save_figure
-from rnaloops.engineer.add_features import load_agg_df
+from rnaloops.engineer.add_features import load_agg_df, save_agg_df
 from rnaloops.prepare.data_loader import load_data
 from rnaloops.prepare.explore_fcts import open_svg_image
 
@@ -93,23 +93,29 @@ def main_cluster_analysis(
 
 
 def analyse_cluster(way=3, idx=0, raw_df=None, cluster=None, agg_way=None,
-                    agg_all=None, all_seq=False):
+                    agg_all=None, sequences=None):
     if raw_df is None:
-        raw_df = load_data('_cleaned_L2_with_chains')
+        raw_df = load_data('_cleaned_L2_final')
     if agg_way is None:
         agg_way = load_agg_df(way=way)
     if cluster is None:
-        if all_seq:
+        if sequences is not None:
             cluster = agg_way
         else:
             cluster = pd.read_csv(mypath('CLUSTER', f'{way}.csv'))
     if agg_all is None:
         agg_all = load_agg_df()
 
-    if all_seq:
+    if sequences == 'all':
         cluster_seq = agg_way.index
-    else:
+    elif sequences is None:
         cluster_seq = cluster[cluster[cluster.columns[-1]] == idx].index
+    else:
+        cluster_seq = sequences
+
+    if len(cluster_seq) < 3:
+        print('Got less than 3 sequences to cluster, generally 3 sequences are'
+              'required for clustering, will most probably fail...')
 
     cluster_df = agg_way.loc[cluster_seq]
     cluster_raw_df = raw_df[raw_df.parts_seq.isin(cluster_seq)]
@@ -187,8 +193,8 @@ def plot_cluster_analysis(density, diff_inner, diff_all, ax=None, cut=0,
 
 
 def show_cluster(density, way, c_id, diff_inner, diff_all, agg, cluster_df,
-                 cluster_raw_df, s=25, save=False, min_density=15,
-                 max_devs=(5,), n_clusters=75, min_n=10, dpi=300):
+                 cluster_raw_df, s=25, save=False, min_density=0,
+                 max_devs=(5,), n_clusters=0, min_n=10, dpi=300):
     m = {i: f"planar_{i}_median" for i in range(1, way + 1)}
     rows, cols = way + 1, 8
     widths = [1, 0.8, 0.8, 0.8, 0.8, 0.8, 1, 1.3]
@@ -235,7 +241,8 @@ def show_cluster(density, way, c_id, diff_inner, diff_all, agg, cluster_df,
         ax[0, 5].set_title('Fraction of bases', weight='semibold')
 
         cluster_raw_df_cut = cluster_raw_df[
-            cluster_raw_df.parts_seq.isin(cut_df.index)]
+            cluster_raw_df.parts_seq.isin(cut_df.index)
+        ]
 
         j3 = joined_axis(fig, ax, 0, 7, n=rows)
         j3.axis('off')
@@ -318,7 +325,9 @@ def show_cluster(density, way, c_id, diff_inner, diff_all, agg, cluster_df,
 
         plt.tight_layout()
 
-        folder = f'cluster_ids/n_{n_clusters}/way{way}/density_{min_density}'
+        part = f'n_{n_clusters}/' if n_clusters > 0 else ''
+        folder = f'cluster_ids/{part}way{way}/density_{min_density}'
+
         save_figure(f'{c_id}_dev{max_dev}', dpi=dpi, save=save,
                     folder=folder, create_if_missing=True, recent=False,
                     tight=True)
@@ -600,3 +609,50 @@ def get_overall_densities():
         ax2.legend(['sequence density'], loc='lower right')
 
         plt.savefig(f'results/densities/way_{way}_seq_density.png')
+
+
+def get_similar_loops(way=3, min_n=10):
+    """Get parts_seq with same length of all strands
+
+    Parameters
+    ----------
+    way : int
+        loop type to use
+    min_n : int
+        minimum number of sequences per group to be yielded
+
+    Yields
+    -------
+    list
+        A list of parts_seq for each unique combination of strand length.
+        The first yielded list contains sequences with the most common
+        combination of length of all strands, followed by the next least common
+        and so on until the list contains min_n elements only.
+
+    """
+    try:
+        agg = load_agg_df(way=way)
+    except FileNotFoundError:
+        agg = save_agg_df(way=way)
+
+    cols = [f"strand_{i}_nts" for i in range(1, way + 1)]
+    count = agg.groupby(cols).size().sort_values(ascending=False)
+    indices = count[count > min_n].index
+    agg = agg.reset_index().set_index(cols).sort_index()
+
+    for idx in indices.to_list():
+        yield agg.loc[idx]['parts_seq'].to_list()
+
+
+def analyse_similar_loops(way=3, max_devs=(5, 100), save=True):
+    """Perform main_cluster_analysis using similar loops as clusters
+
+        see get_similar_loops to know what similar loops are
+        see show_cluster to check what given parameters do
+
+    """
+    for idx, sequences in enumerate(get_similar_loops(way=way)):
+        density, *out = analyse_cluster(way=way, sequences=sequences)
+        show_cluster(
+            density, way, f'{idx}', *out, save=save, max_devs=max_devs, min_n=2
+        )
