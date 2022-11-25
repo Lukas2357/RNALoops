@@ -1,3 +1,6 @@
+# Constants file (unique on every local system!)
+rnaloops/config/constants.py
+
 # Temporal files:
 temp/
 temp.py
