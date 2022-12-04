@@ -1,3 +1,4 @@
+import os
 from collections import Counter
 
 import joblib
@@ -152,7 +153,7 @@ def load_agg_df(level='L2', way=None, cat='parts_seq'):
         filename += f'_way{way}'
 
     df = pd.read_csv(mypath('DATA_PREP', subfolder='aggregated',
-                            file=filename + '.csv'), index_col='parts_seq')
+                            file=filename + '.csv'), index_col=cat)
 
     for col in df.columns:
         if 'euler' in col:

@@ -42,6 +42,9 @@ from rnaloops.cluster.cluster_plot import do_plot
 from rnaloops.cluster.clustering import do_cluster
 from rnaloops.cluster.cluster_plot_help_fcts import init_subplots_plot
 from rnaloops.engineer.analyse_cluster import *
+from rnaloops.predict.prepare_input import *
+from rnaloops.predict.prepare_model import *
+from rnaloops.predict.apply_model import *
 
 
 os.chdir(PARENT_DIR)
