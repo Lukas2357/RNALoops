@@ -1,6 +1,8 @@
 # Analysing the RNA-Loops database
 
-This project analyses the [RNALoops Database](https://rnaloops.cs.put.poznan.pl/) to verify data integrity and get insights to the distribution of RNA structures stored there. Basic studies include the identification of issues in data quality:
+This project analyses the [RNALoops Database](https://rnaloops.cs.put.poznan.pl/) to verify data integrity and get insights to the distribution of RNA structures stored there. 
+
+Basic studies include the identification of issues in data quality:
 
 ![image](https://user-images.githubusercontent.com/65038289/224550402-08481f8d-8f64-413d-969f-7eed9380baaa.png)
 
